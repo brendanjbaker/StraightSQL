@@ -95,6 +95,16 @@
 			return list;
 		}
 
+		public async Task<T> SingleAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		{
+			var result = await SingleOrDefaultAsync(query, reader);
+
+			if (result == null)
+				throw new InvalidOperationException("The sequence did not contain exactly one element.");
+
+			return result;
+		}
+
 		public async Task<T> SingleOrDefaultAsync<T>(IQuery query, Func<DbDataReader, T> reader)
 		{
 			using (var connection = await connectionFactory.CreateAsync())
