@@ -7,6 +7,9 @@
 	{
 		public IQueryParameterBuilder SetQuery(String query)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
 			return new QueryParameterBuilder(query);
 		}
 	}

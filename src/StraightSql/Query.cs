@@ -16,6 +16,12 @@
 
 		public Query(String text, IEnumerable<NpgsqlParameter> parameters)
 		{
+			if (text == null)
+				throw new ArgumentNullException(nameof(text));
+
+			if (parameters == null)
+				throw new ArgumentNullException(nameof(parameters));
+
 			this.text = text;
 			this.parameters = parameters;
 		}

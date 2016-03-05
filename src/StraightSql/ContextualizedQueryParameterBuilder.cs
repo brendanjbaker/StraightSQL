@@ -10,6 +10,12 @@
 
 		public ContextualizedQueryParameterBuilder(IQueryDispatcher queryDispatcher, IQueryParameterBuilder queryParameterBuilder)
 		{
+			if (queryDispatcher == null)
+				throw new ArgumentNullException(nameof(queryDispatcher));
+
+			if (queryParameterBuilder == null)
+				throw new ArgumentNullException(nameof(queryParameterBuilder));
+
 			this.queryDispatcher = queryDispatcher;
 			this.queryParameterBuilder = queryParameterBuilder;
 		}
@@ -23,6 +29,9 @@
 
 		public IContextualizedQueryParameterBuilder SetParameter<T>(String name, T value)
 		{
+			if (name == null)
+				throw new ArgumentNullException(nameof(name));
+
 			queryParameterBuilder.SetParameter(name, value);
 
 			return this;

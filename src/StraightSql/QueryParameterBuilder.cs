@@ -12,6 +12,9 @@
 
 		public QueryParameterBuilder(String query)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
 			this.parameters = new List<NpgsqlParameter>();
 			this.query = query;
 		}
@@ -23,6 +26,9 @@
 
 		public IQueryParameterBuilder SetParameter<T>(String name, T value)
 		{
+			if (name == null)
+				throw new ArgumentNullException(nameof(name));
+
 			parameters.Add(new NpgsqlParameter(name, value));
 
 			return this;
