@@ -13,7 +13,7 @@
 			{
 				using (var command = connection.CreateCommand())
 				{
-					command.CommandText = query.Text;
+					PrepareCommand(command, query);
 
 					var dataReader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
 

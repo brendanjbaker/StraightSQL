@@ -11,7 +11,7 @@
 			{
 				using (var command = connection.CreateCommand())
 				{
-					command.CommandText = query.Text;
+					PrepareCommand(command, query);
 
 					var countResult = await command.ExecuteScalarAsync();
 					var count = (Int64)countResult;
