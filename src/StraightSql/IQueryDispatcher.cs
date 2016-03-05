@@ -7,6 +7,7 @@
 
 	public interface IQueryDispatcher
 	{
+		Task<Boolean> AnyAsync(IQuery query);
 		Task<Int64> CountAsync(IQuery query);
 		Task ExecuteAsync(IQuery query);
 		Task<T> FirstAsync<T>(IQuery query, Func<DbDataReader, T> reader);
