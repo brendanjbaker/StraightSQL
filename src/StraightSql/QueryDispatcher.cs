@@ -50,7 +50,7 @@
 			var result = await FirstOrDefaultAsync(query, reader);
 
 			if (result == null)
-				throw new InvalidOperationException("The sequence contained more than one element.");
+				throw new InvalidOperationException("The sequence contained no elements.");
 
 			return result;
 		}
