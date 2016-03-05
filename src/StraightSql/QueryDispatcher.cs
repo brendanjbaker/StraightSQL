@@ -50,7 +50,7 @@
 			var result = await FirstOrDefaultAsync(query, reader);
 
 			if (result == null)
-				throw new InvalidOperationException("The sequence contained more than one element.");
+				throw new InvalidOperationException("The sequence contained no elements.");
 
 			return result;
 		}
@@ -93,6 +93,39 @@
 			}
 
 			return list;
+		}
+
+		public async Task<T> SingleAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		{
+			var result = await SingleOrDefaultAsync(query, reader);
+
+			if (result == null)
+				throw new InvalidOperationException("The sequence did not contain exactly one element.");
+
+			return result;
+		}
+
+		public async Task<T> SingleOrDefaultAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		{
+			using (var connection = await connectionFactory.CreateAsync())
+			{
+				using (var command = connection.CreateCommand())
+				{
+					command.CommandText = query.Text;
+
+					var dataReader = await command.ExecuteReaderAsync();
+
+					if (!await dataReader.ReadAsync())
+						return default(T);
+
+					var first = reader(dataReader);
+
+					if (await dataReader.ReadAsync())
+						return default(T);
+
+					return first;
+				}
+			}
 		}
 	}
 }
