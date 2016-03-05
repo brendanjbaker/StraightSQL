@@ -45,6 +45,16 @@
 			}
 		}
 
+		public async Task<T> FirstAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		{
+			var result = await FirstOrDefaultAsync(query, reader);
+
+			if (result == null)
+				throw new InvalidOperationException("The sequence contained more than one element.");
+
+			return result;
+		}
+
 		public async Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<DbDataReader, T> reader)
 		{
 			using (var connection = await connectionFactory.CreateAsync())
