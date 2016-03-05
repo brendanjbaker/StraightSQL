@@ -9,7 +9,7 @@
 		{
 			var first = await FirstOrDefaultAsync(query, reader =>
 			{
-				return default(Object);
+				return new Object();
 			});
 
 			return first != null;

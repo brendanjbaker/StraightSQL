@@ -26,7 +26,7 @@
 			foreach (var setupQuery in setupQueries)
 				await queryDispatcher.ExecuteAsync(new Query(setupQuery));
 
-			var listQuery = "SELECT id, value FROM list_query_test;";
+			var listQuery = "SELECT id, value FROM any_query_test;";
 
 			var isAny = await queryDispatcher.AnyAsync(new Query(listQuery));
 
@@ -49,7 +49,7 @@
 			foreach (var setupQuery in setupQueries)
 				await queryDispatcher.ExecuteAsync(new Query(setupQuery));
 
-			var listQuery = "SELECT id, value FROM list_query_test;";
+			var listQuery = "SELECT id, value FROM any_query_empty_test;";
 
 			var isAny = await queryDispatcher.AnyAsync(new Query(listQuery));
 
