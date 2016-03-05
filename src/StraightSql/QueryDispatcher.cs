@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Data;
 	using System.Data.Common;
 	using System.Threading.Tasks;
 
@@ -40,6 +41,34 @@
 					command.CommandText = query.Text;
 
 					await command.ExecuteNonQueryAsync();
+				}
+			}
+		}
+
+		public async Task<T> FirstAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		{
+			var result = await FirstOrDefaultAsync(query, reader);
+
+			if (result == null)
+				throw new InvalidOperationException("The sequence contained more than one element.");
+
+			return result;
+		}
+
+		public async Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		{
+			using (var connection = await connectionFactory.CreateAsync())
+			{
+				using (var command = connection.CreateCommand())
+				{
+					command.CommandText = query.Text;
+
+					var dataReader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
+
+					if (!await dataReader.ReadAsync())
+						return default(T);
+
+					return reader(dataReader);
 				}
 			}
 		}
