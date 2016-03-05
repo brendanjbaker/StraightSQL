@@ -10,6 +10,9 @@
 
 		public QueryParameter(String name, Object value)
 		{
+			if (name == null)
+				throw new ArgumentNullException(nameof(name));
+
 			this.name = name;
 			this.value = value;
 		}

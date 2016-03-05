@@ -11,6 +11,9 @@
 
 		public ConnectionFactory(String connectionString)
 		{
+			if (connectionString == null)
+				throw new ArgumentNullException(nameof(connectionString));
+
 			this.connectionString = connectionString;
 		}
 
