@@ -24,8 +24,11 @@
 			foreach (var setupQuery in setupQueries)
 				await queryDispatcher.ExecuteAsync(new Query(setupQuery));
 
-			var contextualizedQueryBuilder = new ContextualizedQueryBuilder(queryDispatcher);
-			var personReader = new PersonReader();
+			var readerCollection = new ReaderCollection();
+
+			readerCollection.Add(new PersonReader());
+
+			var contextualizedQueryBuilder = new ContextualizedQueryBuilder(queryDispatcher, readerCollection);
 
 			var item =
 				await contextualizedQueryBuilder
@@ -35,7 +38,7 @@
 						WHERE last_name = :last_name;")
 					.SetParameter("last_name", "Baker")
 					.Build()
-					.SingleAsync(personReader.Read);
+					.SingleAsync<Person>();
 
 			Assert.NotNull(item);
 			Assert.Equal(item.Id, 417);

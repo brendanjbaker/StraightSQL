@@ -16,7 +16,7 @@
 			var setupQueries = new String[]
 			{
 				"DROP TABLE IF EXISTS contextualized_query_builder_query_test;",
-				"CREATE TABLE contextualized_query_builder_query_test (id INT NOT NULL, name TEXT NOT NULL);",
+				"CREATE TABLE contextualized_query_builder_query_test (id INT NOT NULL, value TEXT NOT NULL);",
 				"INSERT INTO contextualized_query_builder_query_test VALUES (1, 'James');",
 				"INSERT INTO contextualized_query_builder_query_test VALUES (2, 'Frank');",
 				"INSERT INTO contextualized_query_builder_query_test VALUES (3, 'Hopkins');",
@@ -30,28 +30,25 @@
 			foreach (var setupQuery in setupQueries)
 				await queryDispatcher.ExecuteAsync(new Query(setupQuery));
 
-			var contextualizedQueryBuilder = new ContextualizedQueryBuilder(queryDispatcher);
+			var readerCollection = new ReaderCollection();
+
+			readerCollection.Add(new TestItemReader());
+
+			var contextualizedQueryBuilder = new ContextualizedQueryBuilder(queryDispatcher, readerCollection);
 
 			var item =
 				await contextualizedQueryBuilder
 					.SetQuery(@"
-						SELECT id, name
+						SELECT id, value
 						FROM contextualized_query_builder_query_test
-						WHERE name = :name;")
-					.SetParameter("name", "Hopkins")
+						WHERE value = :value;")
+					.SetParameter("value", "Hopkins")
 					.Build()
-					.FirstAsync(reader =>
-					{
-						return new
-						{
-							id = (Int32)reader["id"],
-							name = (String)reader["name"]
-						};
-					});
+					.FirstAsync<TestItem>();
 
 			Assert.NotNull(item);
-			Assert.Equal(item.id, 3);
-			Assert.Equal(item.name, "Hopkins");
+			Assert.Equal(item.Id, 3);
+			Assert.Equal(item.Value, "Hopkins");
 		}
 	}
 }

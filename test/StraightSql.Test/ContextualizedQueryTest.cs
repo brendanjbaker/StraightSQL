@@ -35,20 +35,17 @@
 					.SetParameter("greekLetter", "Delta")
 					.Build();
 
-			var contextualizedQuery = new ContextualizedQuery(query, queryDispatcher);
+			var readerCollection = new ReaderCollection();
 
-			var item = await contextualizedQuery.FirstAsync(reader =>
-			{
-				return new
-				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
-				};
-			});
+			readerCollection.Add(new TestItemReader());
+
+			var contextualizedQuery = new ContextualizedQuery(query, queryDispatcher, readerCollection);
+
+			var item = await contextualizedQuery.FirstAsync<TestItem>();
 
 			Assert.NotNull(item);
-			Assert.Equal(item.id, 4);
-			Assert.Equal(item.value, "Delta");
+			Assert.Equal(item.Id, 4);
+			Assert.Equal(item.Value, "Delta");
 		}
 	}
 }
