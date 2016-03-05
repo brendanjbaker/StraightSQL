@@ -28,14 +28,14 @@
 				await database
 					.CreateQuery(@"
 						SELECT id, value
-						FROM contextualized_query_builder_query_test
-						WHERE value = :value;")
-					.SetParameter("value", "Hopkins")
+						FROM database_abstraction_test
+						WHERE id = :id;")
+					.SetParameter("id", 1)
 					.FirstAsync<TestItem>();
 
 			Assert.NotNull(item);
-			Assert.Equal(item.Id, 3);
-			Assert.Equal(item.Value, "Hopkins");
+			Assert.Equal(item.Id, 1);
+			Assert.Equal(item.Value, "James");
 		}
 	}
 }
