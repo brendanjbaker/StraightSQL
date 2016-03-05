@@ -9,6 +9,7 @@
 	{
 		Task<Int64> CountAsync(IQuery query);
 		Task ExecuteAsync(IQuery query);
+		Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<DbDataReader, T> reader);
 		Task<IList<T>> ListAsync<T>(IQuery query, Func<DbDataReader, T> reader);
 	}
 }
