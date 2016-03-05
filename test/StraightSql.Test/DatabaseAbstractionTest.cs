@@ -31,7 +31,6 @@
 						FROM contextualized_query_builder_query_test
 						WHERE value = :value;")
 					.SetParameter("value", "Hopkins")
-					.Build()
 					.FirstAsync<TestItem>();
 
 			Assert.NotNull(item);
