@@ -4,8 +4,8 @@
 	},
 	"dependencies": {
 		"StraightSql": "0.10",
-		"xunit": "2.1.0-rc1-build3168",
-		"xunit.runner.dnx": "2.1.0-rc1-build204"
+		"xunit": "2.1.0-rc2-build3178",
+		"xunit.runner.dnx": "2.1.0-rc2-build209"
 	},
 	"frameworks": {
 		"dnx46": { }
