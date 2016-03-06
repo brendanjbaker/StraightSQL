@@ -21,7 +21,12 @@
 			if (reader == null)
 				throw new ReaderNotFoundException(typeof(T));
 
-			return (T)reader.Read(dataReader);
+			var instance = reader.Read(dataReader);
+
+			if (instance.GetType() != typeof(T))
+				throw new ReaderTypeMismatchException(typeof(T), instance.GetType());
+
+			return (T)instance;
 		}
 	}
 }

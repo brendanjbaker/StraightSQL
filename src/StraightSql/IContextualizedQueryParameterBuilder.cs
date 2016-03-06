@@ -5,6 +5,6 @@
 	public interface IContextualizedQueryParameterBuilder
 	{
 		IContextualizedQuery Build();
-		IContextualizedQueryParameterBuilder SetParameter<T>(String name, T value);
+		IContextualizedQueryParameterBuilder SetParameter(String name, Object value);
 	}
 }
