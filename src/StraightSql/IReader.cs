@@ -5,7 +5,8 @@
 
 	public interface IReader
 	{
-		Object Read(DbDataReader reader);
 		Type Type { get; }
+
+		Object Read(DbDataReader reader);
 	}
 }
