@@ -29,7 +29,14 @@
 			if (name == null)
 				throw new ArgumentNullException(nameof(name));
 
-			parameters.Add(new NpgsqlParameter(name, value));
+			if (value == null)
+			{
+				parameters.Add(new NpgsqlParameter(name, DBNull.Value));
+			}
+			else
+			{
+				parameters.Add(new NpgsqlParameter(name, value));
+			}
 
 			return this;
 		}
