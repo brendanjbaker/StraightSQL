@@ -1,9 +1,11 @@
 ﻿namespace StraightSql
 {
+	using System;
 	using System.Data.Common;
 
-	public interface IReader<T>
+	public interface IReader
 	{
-		T Read(DbDataReader reader);
+		Object Read(DbDataReader reader);
+		Type Type { get; }
 	}
 }

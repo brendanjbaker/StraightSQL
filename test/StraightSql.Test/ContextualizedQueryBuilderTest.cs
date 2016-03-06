@@ -30,9 +30,10 @@
 			foreach (var setupQuery in setupQueries)
 				await queryDispatcher.ExecuteAsync(new Query(setupQuery));
 
-			var readerCollection = new ReaderCollection();
-
-			readerCollection.Add(new TestItemReader());
+			var readerCollection = new ReaderCollection(new[]
+			{
+				Reader.Create(new TestItemReader())
+			});
 
 			var contextualizedQueryBuilder = new ContextualizedQueryBuilder(queryDispatcher, readerCollection);
 

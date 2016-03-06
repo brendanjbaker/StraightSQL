@@ -35,9 +35,10 @@
 					.SetParameter("greekLetter", "Delta")
 					.Build();
 
-			var readerCollection = new ReaderCollection();
-
-			readerCollection.Add(new TestItemReader());
+			var readerCollection = new ReaderCollection(new[]
+			{
+				Reader.Create(new TestItemReader())
+			});
 
 			var contextualizedQuery = new ContextualizedQuery(query, queryDispatcher, readerCollection);
 

@@ -4,6 +4,6 @@
 
 	public interface IReaderCollection
 	{
-		T Read<T>(DbDataReader reader);
+		T Read<T>(DbDataReader dataReader);
 	}
 }
