@@ -37,12 +37,27 @@
 			return await builder.Build().ListAsync<T>();
 		}
 
+		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Byte[] value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, DateTime? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
 		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Guid? value)
 		{
 			return instance.SetParameterInternal(name, value);
 		}
 
 		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Int32? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Int64? value)
 		{
 			return instance.SetParameterInternal(name, value);
 		}

@@ -5,12 +5,27 @@
 
 	public static class QueryParameterBuilderExtensions
 	{
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Byte[] value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, DateTime? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
 		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Guid? value)
 		{
 			return instance.SetParameterInternal(name, value);
 		}
 
 		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Int32? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Int64? value)
 		{
 			return instance.SetParameterInternal(name, value);
 		}
