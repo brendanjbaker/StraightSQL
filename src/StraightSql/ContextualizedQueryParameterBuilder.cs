@@ -1,5 +1,6 @@
 ﻿namespace StraightSql
 {
+	using Npgsql;
 	using System;
 
 	public class ContextualizedQueryParameterBuilder
@@ -32,12 +33,9 @@
 			return new ContextualizedQuery(query, queryDispatcher, readerCollection);
 		}
 
-		public IContextualizedQueryParameterBuilder SetParameter(String name, Object value)
+		public IContextualizedQueryParameterBuilder SetParameter(NpgsqlParameter npgsqlParameter)
 		{
-			if (name == null)
-				throw new ArgumentNullException(nameof(name));
-
-			queryParameterBuilder.SetParameter(name, value);
+			queryParameterBuilder.SetParameter(npgsqlParameter);
 
 			return this;
 		}

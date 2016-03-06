@@ -1,5 +1,6 @@
 ﻿namespace StraightSql
 {
+	using Npgsql;
 	using System;
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
@@ -36,6 +37,21 @@
 			return await builder.Build().ListAsync<T>();
 		}
 
+		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Guid? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Int32? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, String value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
 		public static async Task<T> SingleAsync<T>(this IContextualizedQueryParameterBuilder builder)
 		{
 			return await builder.Build().SingleAsync<T>();
@@ -44,6 +60,13 @@
 		public static async Task<T> SingleOrDefaultAsync<T>(this IContextualizedQueryParameterBuilder builder)
 		{
 			return await builder.Build().SingleOrDefaultAsync<T>();
+		}
+
+		private static IContextualizedQueryParameterBuilder SetParameterInternal<T>(this IContextualizedQueryParameterBuilder instance, String name, T value)
+		{
+			return value == null
+				? instance.SetParameter(new NpgsqlParameter(name, DBNull.Value))
+				: instance.SetParameter(new NpgsqlParameter(name, value));
 		}
 	}
 }
