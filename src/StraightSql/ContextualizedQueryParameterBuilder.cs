@@ -32,7 +32,7 @@
 			return new ContextualizedQuery(query, queryDispatcher, readerCollection);
 		}
 
-		public IContextualizedQueryParameterBuilder SetParameter<T>(String name, T value)
+		public IContextualizedQueryParameterBuilder SetParameter(String name, Object value)
 		{
 			if (name == null)
 				throw new ArgumentNullException(nameof(name));
