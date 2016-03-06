@@ -1,35 +1,27 @@
 ﻿namespace StraightSql
 {
-	using System;
 	using System.Collections.Generic;
 	using System.Data.Common;
+	using System.Linq;
 
 	public class ReaderCollection
 		: IReaderCollection
 	{
-		private readonly IDictionary<Type, Func<DbDataReader, Object>> readerFunctions;
+		private readonly IEnumerable<IReader> readers;
 
-		public ReaderCollection()
+		public ReaderCollection(IEnumerable<IReader> readers)
 		{
-			this.readerFunctions = new Dictionary<Type, Func<DbDataReader, Object>>();
+			this.readers = readers;
 		}
 
-		public void Add<T>(IReader<T> reader)
+		public T Read<T>(DbDataReader dataReader)
 		{
-			readerFunctions.Add(typeof(T), dbDataReader =>
-			{
-				return reader.Read(dbDataReader);
-			});
-		}
+			var reader = readers.SingleOrDefault(r => r.Type == typeof(T));
 
-		public T Read<T>(DbDataReader reader)
-		{
-			Func<DbDataReader, Object> readerFunction;
-
-			if (!readerFunctions.TryGetValue(typeof(T), out readerFunction))
+			if (reader == null)
 				throw new ReaderNotFoundException(typeof(T));
 
-			return (T)readerFunction(reader);
+			return (T)reader.Read(dataReader);
 		}
 	}
 }
