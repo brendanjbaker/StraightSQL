@@ -1,10 +1,10 @@
 ﻿namespace StraightSql
 {
-	using System;
+	using Npgsql;
 
 	public interface IQueryParameterBuilder
 	{
 		IQuery Build();
-		IQueryParameterBuilder SetParameter(String name, Object value);
+		IQueryParameterBuilder SetParameter(NpgsqlParameter npgsqlParameter);
 	}
 }

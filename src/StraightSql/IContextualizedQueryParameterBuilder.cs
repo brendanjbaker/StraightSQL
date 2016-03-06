@@ -1,10 +1,10 @@
 ﻿namespace StraightSql
 {
-	using System;
+	using Npgsql;
 
 	public interface IContextualizedQueryParameterBuilder
 	{
 		IContextualizedQuery Build();
-		IContextualizedQueryParameterBuilder SetParameter(String name, Object value);
+		IContextualizedQueryParameterBuilder SetParameter(NpgsqlParameter npgsqlParameter);
 	}
 }

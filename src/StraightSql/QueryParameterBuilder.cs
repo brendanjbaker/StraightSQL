@@ -24,12 +24,9 @@
 			return new Query(query, parameters);
 		}
 
-		public IQueryParameterBuilder SetParameter(String name, Object value)
+		public IQueryParameterBuilder SetParameter(NpgsqlParameter npgsqlParameter)
 		{
-			if (name == null)
-				throw new ArgumentNullException(nameof(name));
-
-			parameters.Add(new NpgsqlParameter(name, value ?? DBNull.Value));
+			parameters.Add(npgsqlParameter);
 
 			return this;
 		}
