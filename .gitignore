@@ -1,6 +1,6 @@
-.bin/
 .vs/
 *.xproj.user
 artifacts/
+bin/
 project.lock.json
 
