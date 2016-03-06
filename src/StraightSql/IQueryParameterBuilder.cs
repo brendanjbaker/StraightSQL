@@ -4,7 +4,7 @@
 
 	public interface IQueryParameterBuilder
 	{
-		IQueryParameterBuilder SetParameter(String name, Object value);
 		IQuery Build();
+		IQueryParameterBuilder SetParameter(String name, Object value);
 	}
 }
