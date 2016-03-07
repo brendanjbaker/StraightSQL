@@ -19,7 +19,7 @@
 		{
 			return new Reader(typeof(T), dataReader =>
 			{
-				return reader.Read(dataReader);
+				return reader.Read(new Row(dataReader));
 			});
 		}
 

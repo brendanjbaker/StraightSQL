@@ -1,7 +1,6 @@
 ﻿namespace StraightSql.Test
 {
 	using System;
-	using System.Data.Common;
 	using System.Threading.Tasks;
 	using Xunit;
 
@@ -59,14 +58,14 @@
 		private class PersonReader
 			: IReader<Person>
 		{
-			public Person Read(DbDataReader reader)
+			public Person Read(IRow row)
 			{
 				return new Person()
 				{
-					FirstName = (String)reader["first_name"],
-					Id = (Int32)reader["id"],
-					LastName = (String)reader["last_name"],
-					MiddleName = (String)reader["middle_name"],
+					FirstName = row.ReadString("first_name"),
+					Id = row.ReadInt32("id").Value,
+					LastName = row.ReadString("last_name"),
+					MiddleName = row.ReadString("middle_name")
 				};
 			}
 		}
