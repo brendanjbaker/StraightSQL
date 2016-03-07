@@ -1,17 +1,14 @@
 ﻿namespace StraightSql.Test
 {
-	using System;
-	using System.Data.Common;
-
 	public class TestItemReader
 		: IReader<TestItem>
 	{
-		public TestItem Read(DbDataReader reader)
+		public TestItem Read(IRow row)
 		{
 			return new TestItem()
 			{
-				Id = (Int32)reader["id"],
-				Value = (String)reader["value"]
+				Id = row.ReadInt32("id").Value,
+				Value = row.ReadString("value")
 			};
 		}
 	}
