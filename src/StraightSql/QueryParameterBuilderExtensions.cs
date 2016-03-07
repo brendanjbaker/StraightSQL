@@ -5,6 +5,16 @@
 
 	public static class QueryParameterBuilderExtensions
 	{
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Boolean? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Byte? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
 		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Byte[] value)
 		{
 			return instance.SetParameterInternal(name, value);
@@ -20,6 +30,11 @@
 			return instance.SetParameterInternal(name, value);
 		}
 
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Int16? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
 		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Int32? value)
 		{
 			return instance.SetParameterInternal(name, value);
@@ -31,6 +46,21 @@
 		}
 
 		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, String value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, UInt16? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, UInt32? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, UInt64? value)
 		{
 			return instance.SetParameterInternal(name, value);
 		}
