@@ -1,7 +1,6 @@
 ﻿namespace StraightSql
 {
 	using System.Collections.Generic;
-	using System.Data.Common;
 	using System.Linq;
 
 	public class ReaderCollection
@@ -14,14 +13,14 @@
 			this.readers = readers;
 		}
 
-		public T Read<T>(DbDataReader dataReader)
+		public T Read<T>(IRow row)
 		{
 			var reader = readers.SingleOrDefault(r => r.Type == typeof(T));
 
 			if (reader == null)
 				throw new ReaderNotFoundException(typeof(T));
 
-			var instance = reader.Read(dataReader);
+			var instance = reader.Read(row);
 
 			if (instance.GetType() != typeof(T))
 				throw new ReaderTypeMismatchException(typeof(T), instance.GetType());

@@ -11,6 +11,7 @@
 		{
 			var queryDispatcher =
 				new QueryDispatcher(
+					new CommandPreparer(),
 					new ConnectionFactory(ConnectionString.Default));
 
 			var queries = new String[]
@@ -22,6 +23,12 @@
 
 			foreach (var query in queries)
 				await queryDispatcher.ExecuteAsync(new Query(query));
+
+			var countQuery = "SELECT COUNT(*) FROM insert_query_test;";
+
+			var count = await queryDispatcher.CountAsync(new Query(countQuery));
+
+			Assert.Equal(count, 1);
 		}
 	}
 }

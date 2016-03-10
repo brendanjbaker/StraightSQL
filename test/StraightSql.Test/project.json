@@ -3,7 +3,7 @@
 		"test": "xunit.runner.dnx"
 	},
 	"dependencies": {
-		"StraightSql": "0.15",
+		"StraightSql": "0.16",
 		"xunit": "2.1.0-rc2-build3178",
 		"xunit.runner.dnx": "2.1.0-rc2-build209"
 	},

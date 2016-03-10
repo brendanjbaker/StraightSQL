@@ -11,6 +11,7 @@
 		{
 			var queryDispatcher =
 				new QueryDispatcher(
+					new CommandPreparer(),
 					new ConnectionFactory(ConnectionString.Default));
 
 			var setupQueries = new String[]
@@ -36,12 +37,12 @@
 					.SetParameter("id", 3)
 					.Build();
 
-			var item = await queryDispatcher.FirstAsync(query, reader =>
+			var item = await queryDispatcher.FirstAsync(query, row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 

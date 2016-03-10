@@ -12,6 +12,7 @@
 		{
 			var queryDispatcher =
 				new QueryDispatcher(
+					new CommandPreparer(),
 					new ConnectionFactory(ConnectionString.Default));
 
 			var setupQueries = new String[]
@@ -38,12 +39,12 @@
 				new NpgsqlParameter("id", 1)
 			};
 
-			var item = await queryDispatcher.FirstAsync(new Query(query, parameters), reader =>
+			var item = await queryDispatcher.FirstAsync(new Query(query, parameters), row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 

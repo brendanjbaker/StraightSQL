@@ -11,6 +11,7 @@
 		{
 			var queryDispatcher =
 				new QueryDispatcher(
+					new CommandPreparer(),
 					new ConnectionFactory(ConnectionString.Default));
 
 			var setupQueries = new String[]
@@ -28,12 +29,12 @@
 
 			var listQuery = "SELECT id, value FROM list_query_test;";
 
-			var items = await queryDispatcher.ListAsync(new Query(listQuery), reader =>
+			var items = await queryDispatcher.ListAsync(new Query(listQuery), row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 
@@ -57,6 +58,7 @@
 		{
 			var queryDispatcher =
 				new QueryDispatcher(
+					new CommandPreparer(),
 					new ConnectionFactory(ConnectionString.Default));
 
 			var setupQueries = new String[]
@@ -70,12 +72,12 @@
 
 			var listQuery = "SELECT id, value FROM empty_list_query_test;";
 
-			var items = await queryDispatcher.ListAsync(new Query(listQuery), reader =>
+			var items = await queryDispatcher.ListAsync(new Query(listQuery), row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 
