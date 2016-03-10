@@ -31,12 +31,12 @@
 				FROM single_or_default_query_test
 				WHERE id = 4;";
 
-			var item = await queryDispatcher.FirstOrDefaultAsync(new Query(listQuery), reader =>
+			var item = await queryDispatcher.FirstOrDefaultAsync(new Query(listQuery), row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 
@@ -69,12 +69,12 @@
 				SELECT id, value
 				FROM single_or_default_is_default_query_test;";
 
-			var item = await queryDispatcher.SingleOrDefaultAsync(new Query(listQuery), reader =>
+			var item = await queryDispatcher.SingleOrDefaultAsync(new Query(listQuery), row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 

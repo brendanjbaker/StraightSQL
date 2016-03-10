@@ -36,12 +36,12 @@
 					.SetParameter("id", 3)
 					.Build();
 
-			var item = await queryDispatcher.FirstAsync(query, reader =>
+			var item = await queryDispatcher.FirstAsync(query, row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 

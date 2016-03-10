@@ -1,12 +1,11 @@
 ﻿namespace StraightSql
 {
 	using System;
-	using System.Data.Common;
 	using System.Threading.Tasks;
 
 	public partial class QueryDispatcher
 	{
-		public async Task<T> SingleOrDefaultAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		public async Task<T> SingleOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
 			using (var connection = await connectionFactory.CreateAsync())
 			{
@@ -19,7 +18,7 @@
 					if (!await dataReader.ReadAsync())
 						return default(T);
 
-					var first = reader(dataReader);
+					var first = reader(new Row(dataReader));
 
 					if (await dataReader.ReadAsync())
 						return default(T);

@@ -1,12 +1,11 @@
 ﻿namespace StraightSql
 {
 	using System;
-	using System.Data.Common;
 	using System.Threading.Tasks;
 
 	public partial class QueryDispatcher
 	{
-		public async Task<T> SingleAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		public async Task<T> SingleAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
 			var result = await SingleOrDefaultAsync(query, reader);
 

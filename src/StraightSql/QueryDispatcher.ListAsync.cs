@@ -2,12 +2,11 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Data.Common;
 	using System.Threading.Tasks;
 
 	public partial class QueryDispatcher
 	{
-		public async Task<IList<T>> ListAsync<T>(IQuery query, Func<DbDataReader, T> readerFunction)
+		public async Task<IList<T>> ListAsync<T>(IQuery query, Func<IRow, T> readerFunction)
 		{
 			var list = new List<T>();
 
@@ -21,7 +20,7 @@
 
 					while (await dataReader.ReadAsync() != false)
 					{
-						list.Add(readerFunction(dataReader));
+						list.Add(readerFunction(new Row(dataReader)));
 					}
 				}
 			}

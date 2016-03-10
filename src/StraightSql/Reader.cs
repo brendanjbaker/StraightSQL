@@ -1,15 +1,14 @@
 ﻿namespace StraightSql
 {
 	using System;
-	using System.Data.Common;
 
 	public class Reader
 		: IReader
 	{
-		private readonly Func<DbDataReader, Object> readerFunction;
+		private readonly Func<IRow, Object> readerFunction;
 		private readonly Type type;
 
-		private Reader(Type type, Func<DbDataReader, Object> readerFunction)
+		private Reader(Type type, Func<IRow, Object> readerFunction)
 		{
 			this.type = type;
 			this.readerFunction = readerFunction;
@@ -17,9 +16,9 @@
 
 		public static Reader Create<T>(IReader<T> reader)
 		{
-			return new Reader(typeof(T), dataReader =>
+			return new Reader(typeof(T), row =>
 			{
-				return reader.Read(new Row(dataReader));
+				return reader.Read(row);
 			});
 		}
 
@@ -28,9 +27,9 @@
 			get { return type; }
 		}
 
-		public Object Read(DbDataReader reader)
+		public Object Read(IRow row)
 		{
-			return readerFunction(reader);
+			return readerFunction(row);
 		}
 	}
 }

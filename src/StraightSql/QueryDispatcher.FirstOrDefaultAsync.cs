@@ -2,12 +2,11 @@
 {
 	using System;
 	using System.Data;
-	using System.Data.Common;
 	using System.Threading.Tasks;
 
 	public partial class QueryDispatcher
 	{
-		public async Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<DbDataReader, T> reader)
+		public async Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
 			using (var connection = await connectionFactory.CreateAsync())
 			{
@@ -20,7 +19,7 @@
 					if (!await dataReader.ReadAsync())
 						return default(T);
 
-					return reader(dataReader);
+					return reader(new Row(dataReader));
 				}
 			}
 		}

@@ -32,12 +32,12 @@
 				WHERE id > 2
 				ORDER BY id ASC;";
 
-			var item = await queryDispatcher.FirstAsync(new Query(listQuery), reader =>
+			var item = await queryDispatcher.FirstAsync(new Query(listQuery), row =>
 			{
 				return new
 				{
-					id = (Int32)reader["id"],
-					value = (String)reader["value"]
+					id = row.ReadInt32("id"),
+					value = row.ReadString("value")
 				};
 			});
 
@@ -68,12 +68,12 @@
 
 			await Assert.ThrowsAsync<InvalidOperationException>(async () =>
 			{
-				await queryDispatcher.FirstAsync(new Query(listQuery), reader =>
+				await queryDispatcher.FirstAsync(new Query(listQuery), row =>
 				{
 					return new
 					{
-						id = (Int32)reader["id"],
-						value = (String)reader["value"]
+						id = row.ReadInt32("id"),
+						value = row.ReadString("value")
 					};
 				});
 			});
