@@ -7,25 +7,20 @@
 	{
 		public async Task<T> SingleOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
-			using (var connection = await connectionFactory.CreateAsync())
+			return await ExecuteQueryAsync(query, async command =>
 			{
-				using (var command = connection.CreateCommand())
-				{
-					PrepareCommand(command, query);
+				var dataReader = await command.ExecuteReaderAsync();
 
-					var dataReader = await command.ExecuteReaderAsync();
+				if (!await dataReader.ReadAsync())
+					return default(T);
 
-					if (!await dataReader.ReadAsync())
-						return default(T);
+				var first = reader(new Row(dataReader));
 
-					var first = reader(new Row(dataReader));
+				if (await dataReader.ReadAsync())
+					return default(T);
 
-					if (await dataReader.ReadAsync())
-						return default(T);
-
-					return first;
-				}
-			}
+				return first;
+			});
 		}
 	}
 }

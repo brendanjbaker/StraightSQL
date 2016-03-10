@@ -7,18 +7,13 @@
 	{
 		public async Task<Int64> CountAsync(IQuery query)
 		{
-			using (var connection = await connectionFactory.CreateAsync())
+			return await ExecuteQueryAsync(query, async command =>
 			{
-				using (var command = connection.CreateCommand())
-				{
-					PrepareCommand(command, query);
+				var countResult = await command.ExecuteScalarAsync();
+				var count = (Int64)countResult;
 
-					var countResult = await command.ExecuteScalarAsync();
-					var count = (Int64)countResult;
-
-					return count;
-				}
-			}
+				return count;
+			});
 		}
 	}
 }

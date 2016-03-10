@@ -2,6 +2,7 @@
 {
 	using Npgsql;
 	using System;
+	using System.Threading.Tasks;
 
 	public partial class QueryDispatcher
 		: IQueryDispatcher
@@ -29,6 +30,19 @@
 			foreach (var queryParameter in query.Parameters)
 			{
 				npgsqlCommand.Parameters.Add(queryParameter);
+			}
+		}
+
+		private async Task<T> ExecuteQueryAsync<T>(IQuery query, Func<NpgsqlCommand, Task<T>> functionAsync)
+		{
+			using (var connection = await connectionFactory.CreateAsync())
+			{
+				using (var command = connection.CreateCommand())
+				{
+					PrepareCommand(command, query);
+
+					return await functionAsync(command);
+				}
 			}
 		}
 	}
