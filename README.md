@@ -2,7 +2,7 @@
 
 Go from this:
 
-```
+```C#
 public async Task<EmailAddressEntity> TryReadAsync(Guid id)
 {
 	using (var connection = new NpgsqlConnection(connectionString))
@@ -41,7 +41,7 @@ public async Task<EmailAddressEntity> TryReadAsync(Guid id)
 
 To this:
 
-```
+```C#
 public async Task<EmailAddressEntity> TryReadAsync(Guid id)
 {
 	return await database
