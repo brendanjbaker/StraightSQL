@@ -10,7 +10,7 @@
 			{
 				using (var command = connection.CreateCommand())
 				{
-					PrepareCommand(command, query);
+					commandPreparer.Prepare(command, query);
 
 					await command.ExecuteNonQueryAsync();
 				}

@@ -11,6 +11,7 @@
 		{
 			var queryDispatcher =
 				new QueryDispatcher(
+					new CommandPreparer(),
 					new ConnectionFactory(ConnectionString.Default));
 
 			var queries = new String[]

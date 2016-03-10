@@ -7,30 +7,19 @@
 	public partial class QueryDispatcher
 		: IQueryDispatcher
 	{
+		private readonly ICommandPreparer commandPreparer;
 		private readonly IConnectionFactory connectionFactory;
 
-		public QueryDispatcher(IConnectionFactory connectionFactory)
+		public QueryDispatcher(ICommandPreparer commandPreparer, IConnectionFactory connectionFactory)
 		{
+			if (commandPreparer == null)
+				throw new ArgumentNullException(nameof(commandPreparer));
+
 			if (connectionFactory == null)
 				throw new ArgumentNullException(nameof(connectionFactory));
 
+			this.commandPreparer = commandPreparer;
 			this.connectionFactory = connectionFactory;
-		}
-
-		private static void PrepareCommand(NpgsqlCommand npgsqlCommand, IQuery query)
-		{
-			if (npgsqlCommand == null)
-				throw new ArgumentNullException(nameof(npgsqlCommand));
-
-			if (query == null)
-				throw new ArgumentNullException(nameof(query));
-
-			npgsqlCommand.CommandText = query.Text;
-
-			foreach (var queryParameter in query.Parameters)
-			{
-				npgsqlCommand.Parameters.Add(queryParameter);
-			}
 		}
 
 		private async Task<T> ExecuteQueryAsync<T>(IQuery query, Func<NpgsqlCommand, Task<T>> functionAsync)
@@ -39,7 +28,7 @@
 			{
 				using (var command = connection.CreateCommand())
 				{
-					PrepareCommand(command, query);
+					commandPreparer.Prepare(command, query);
 
 					return await functionAsync(command);
 				}
