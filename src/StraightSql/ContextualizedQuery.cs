@@ -61,12 +61,22 @@
 			});
 		}
 
+		public async Task<T> FirstAsync<T>(Func<IRow, T> reader)
+		{
+			return await queryDispatcher.FirstAsync(query, row => reader(row));
+		}
+
 		public async Task<T> FirstOrDefaultAsync<T>()
 		{
 			return await queryDispatcher.FirstOrDefaultAsync(query, reader =>
 			{
 				return readerCollection.Read<T>(reader);
 			});
+		}
+
+		public async Task<T> FirstOrDefaultAsync<T>(Func<IRow, T> reader)
+		{
+			return await queryDispatcher.FirstOrDefaultAsync(query, row => reader(row));
 		}
 
 		public async Task<IList<T>> ListAsync<T>()
@@ -77,6 +87,11 @@
 			});
 		}
 
+		public async Task<IList<T>> ListAsync<T>(Func<IRow, T> reader)
+		{
+			return await queryDispatcher.ListAsync(query, row => reader(row));
+		}
+
 		public async Task<T> SingleAsync<T>()
 		{
 			return await queryDispatcher.SingleAsync(query, reader =>
@@ -85,12 +100,22 @@
 			});
 		}
 
+		public async Task<T> SingleAsync<T>(Func<IRow, T> reader)
+		{
+			return await queryDispatcher.SingleAsync(query, row => reader(row));
+		}
+
 		public async Task<T> SingleOrDefaultAsync<T>()
 		{
 			return await queryDispatcher.SingleOrDefaultAsync(query, reader =>
 			{
 				return readerCollection.Read<T>(reader);
 			});
+		}
+
+		public async Task<T> SingleOrDefaultAsync<T>(Func<IRow, T> reader)
+		{
+			return await queryDispatcher.SingleOrDefaultAsync(query, row => reader(row));
 		}
 	}
 }
