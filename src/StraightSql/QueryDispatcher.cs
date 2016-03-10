@@ -47,15 +47,12 @@
 
 		public async Task ExecuteAsync(IQuery query)
 		{
-			using (var connection = await connectionFactory.CreateAsync())
+			await ExecuteQueryAsync(query, async command =>
 			{
-				using (var command = connection.CreateCommand())
-				{
-					commandPreparer.Prepare(command, query);
+				await command.ExecuteNonQueryAsync();
 
-					await command.ExecuteNonQueryAsync();
-				}
-			}
+				return 0;
+			});
 		}
 
 		public async Task<T> FirstAsync<T>(IQuery query, Func<IRow, T> reader)
@@ -70,20 +67,15 @@
 
 		public async Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
-			using (var connection = await connectionFactory.CreateAsync())
+			return await ExecuteQueryAsync(query, async command =>
 			{
-				using (var command = connection.CreateCommand())
-				{
-					commandPreparer.Prepare(command, query);
+				var dataReader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
 
-					var dataReader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
+				if (!await dataReader.ReadAsync())
+					return default(T);
 
-					if (!await dataReader.ReadAsync())
-						return default(T);
-
-					return reader(new Row(dataReader));
-				}
-			}
+				return reader(new Row(dataReader));
+			});
 		}
 
 		public async Task<IList<T>> ListAsync<T>(IQuery query, Func<IRow, T> readerFunction)
