@@ -27,14 +27,29 @@
 			return await builder.Build().FirstAsync<T>();
 		}
 
+		public static async Task<T> FirstAsync<T>(this IContextualizedQueryParameterBuilder builder, Func<IRow, T> reader)
+		{
+			return await builder.Build().FirstAsync<T>(reader);
+		}
+
 		public static async Task<T> FirstOrDefaultAsync<T>(this IContextualizedQueryParameterBuilder builder)
 		{
 			return await builder.Build().FirstOrDefaultAsync<T>();
 		}
 
+		public static async Task<T> FirstOrDefaultAsync<T>(this IContextualizedQueryParameterBuilder builder, Func<IRow, T> reader)
+		{
+			return await builder.Build().FirstOrDefaultAsync<T>(reader);
+		}
+
 		public static async Task<IList<T>> ListAsync<T>(this IContextualizedQueryParameterBuilder builder)
 		{
 			return await builder.Build().ListAsync<T>();
+		}
+
+		public static async Task<IList<T>> ListAsync<T>(this IContextualizedQueryParameterBuilder builder, Func<IRow, T> reader)
+		{
+			return await builder.Build().ListAsync<T>(reader);
 		}
 
 		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Boolean? value)
@@ -102,9 +117,19 @@
 			return await builder.Build().SingleAsync<T>();
 		}
 
+		public static async Task<T> SingleAsync<T>(this IContextualizedQueryParameterBuilder builder, Func<IRow, T> reader)
+		{
+			return await builder.Build().SingleAsync<T>(reader);
+		}
+
 		public static async Task<T> SingleOrDefaultAsync<T>(this IContextualizedQueryParameterBuilder builder)
 		{
 			return await builder.Build().SingleOrDefaultAsync<T>();
+		}
+
+		public static async Task<T> SingleOrDefaultAsync<T>(this IContextualizedQueryParameterBuilder builder, Func<IRow, T> reader)
+		{
+			return await builder.Build().SingleOrDefaultAsync<T>(reader);
 		}
 
 		private static IContextualizedQueryParameterBuilder SetParameterInternal<T>(this IContextualizedQueryParameterBuilder instance, String name, T value)
