@@ -28,15 +28,9 @@
 			this.readerCollection = readerCollection;
 		}
 
-		public IEnumerable<NpgsqlParameter> Parameters
-		{
-			get { return query.Parameters; }
-		}
+		public IEnumerable<NpgsqlParameter> Parameters => query.Parameters;
 
-		public String Text
-		{
-			get { return query.Text; }
-		}
+		public String Text => query.Text;
 
 		public async Task<Boolean> AnyAsync()
 		{

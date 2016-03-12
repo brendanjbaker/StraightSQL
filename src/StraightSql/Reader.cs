@@ -31,10 +31,7 @@
 			});
 		}
 
-		public Type Type
-		{
-			get { return type; }
-		}
+		public Type Type => type;
 
 		public Object Read(IRow row)
 		{
