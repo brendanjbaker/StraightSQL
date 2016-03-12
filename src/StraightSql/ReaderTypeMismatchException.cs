@@ -10,6 +10,12 @@
 
 		public ReaderTypeMismatchException(Type expectedType, Type actualType)
 		{
+			if (expectedType == null)
+				throw new ArgumentNullException(nameof(expectedType));
+
+			if (actualType == null)
+				throw new ArgumentNullException(nameof(actualType));
+
 			this.actualType = actualType;
 			this.expectedType = expectedType;
 		}

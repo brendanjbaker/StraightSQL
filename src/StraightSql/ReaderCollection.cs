@@ -1,5 +1,6 @@
 ﻿namespace StraightSql
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 
@@ -10,11 +11,17 @@
 
 		public ReaderCollection(IEnumerable<IReader> readers)
 		{
+			if (readers == null)
+				throw new ArgumentNullException(nameof(readers));
+
 			this.readers = readers;
 		}
 
 		public T Read<T>(IRow row)
 		{
+			if (row == null)
+				throw new ArgumentNullException(nameof(row));
+
 			var reader = readers.SingleOrDefault(r => r.Type == typeof(T));
 
 			if (reader == null)

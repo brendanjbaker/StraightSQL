@@ -35,6 +35,9 @@
 
 		public IContextualizedQueryParameterBuilder SetParameter(NpgsqlParameter npgsqlParameter)
 		{
+			if (npgsqlParameter == null)
+				throw new ArgumentNullException(nameof(npgsqlParameter));
+
 			queryParameterBuilder.SetParameter(npgsqlParameter);
 
 			return this;
