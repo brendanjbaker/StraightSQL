@@ -30,9 +30,9 @@
 
 			var countQuery = "SELECT COUNT(*) FROM count_query_test;";
 
-			var count = await queryDispatcher.CountAsync(new Query(countQuery));
+			var count = await queryDispatcher.ExecuteScalarAsync<Int64>(new Query(countQuery));
 
-			Assert.Equal(count, (UInt32)5);
+			Assert.Equal(count, 5);
 		}
 	}
 }

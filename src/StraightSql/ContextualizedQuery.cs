@@ -47,6 +47,11 @@
 			await queryDispatcher.ExecuteAsync(query);
 		}
 
+		public async Task<T> ExecuteScalarAsync<T>()
+		{
+			return await queryDispatcher.ExecuteScalarAsync<T>(query);
+		}
+
 		public async Task<T> FirstAsync<T>()
 		{
 			return await queryDispatcher.FirstAsync(query, reader => readerCollection.Read<T>(reader));

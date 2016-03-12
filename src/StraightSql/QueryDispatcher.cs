@@ -36,13 +36,7 @@
 
 		public async Task<Int64> CountAsync(IQuery query)
 		{
-			return await ExecuteQueryAsync(query, async command =>
-			{
-				var countResult = await command.ExecuteScalarAsync();
-				var count = (Int64)countResult;
-
-				return count;
-			});
+			return await ExecuteScalarAsync<Int64>(query);
 		}
 
 		public async Task ExecuteAsync(IQuery query)
@@ -52,6 +46,17 @@
 				await command.ExecuteNonQueryAsync();
 
 				return 0;
+			});
+		}
+
+		public async Task<T> ExecuteScalarAsync<T>(IQuery query)
+		{
+			return await ExecuteQueryAsync(query, async command =>
+			{
+				var scalarObject = await command.ExecuteScalarAsync();
+				var scalar = (T)scalarObject;
+
+				return scalar;
 			});
 		}
 

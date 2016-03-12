@@ -22,6 +22,11 @@
 			await builder.Build().ExecuteAsync();
 		}
 
+		public static async Task<T> ExecuteScalarAsync<T>(this IContextualizedQueryParameterBuilder builder)
+		{
+			return await builder.Build().ExecuteScalarAsync<T>();
+		}
+
 		public static async Task<T> FirstAsync<T>(this IContextualizedQueryParameterBuilder builder)
 		{
 			return await builder.Build().FirstAsync<T>();
