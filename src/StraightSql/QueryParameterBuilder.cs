@@ -26,6 +26,9 @@
 
 		public IQueryParameterBuilder SetParameter(NpgsqlParameter npgsqlParameter)
 		{
+			if (npgsqlParameter == null)
+				throw new ArgumentNullException(nameof(npgsqlParameter));
+
 			parameters.Add(npgsqlParameter);
 
 			return this;

@@ -9,6 +9,9 @@
 
 		public ReaderNotFoundException(Type readerType)
 		{
+			if (readerType == null)
+				throw new ArgumentNullException(nameof(readerType));
+
 			this.readerType = readerType;
 		}
 

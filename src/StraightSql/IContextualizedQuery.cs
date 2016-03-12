@@ -10,6 +10,7 @@
 		Task<Boolean> AnyAsync();
 		Task<Int64> CountAsync();
 		Task ExecuteAsync();
+		Task<T> ExecuteScalarAsync<T>();
 		Task<T> FirstAsync<T>();
 		Task<T> FirstAsync<T>(Func<IRow, T> reader);
 		Task<T> FirstOrDefaultAsync<T>();

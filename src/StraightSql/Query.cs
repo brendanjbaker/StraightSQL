@@ -26,14 +26,8 @@
 			this.parameters = parameters;
 		}
 
-		public IEnumerable<NpgsqlParameter> Parameters
-		{
-			get { return parameters; }
-		}
+		public IEnumerable<NpgsqlParameter> Parameters => parameters;
 
-		public String Text
-		{
-			get { return text; }
-		}
+		public String Text => text;
 	}
 }
