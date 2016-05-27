@@ -3,7 +3,7 @@
 		"test": "xunit.runner.dnx"
 	},
 	"dependencies": {
-		"StraightSql": "0.18",
+		"StraightSql": "0.19.1",
 		"xunit": "2.1.0",
 		"dotnet-test-xunit": "1.0.0-rc2-build10025"
 	},
