@@ -15,6 +15,11 @@
 			"imports": "dnxcore50"
 		}
 	},
-	"projectUrl": "https://github.com/brendanjbaker/StraightSQL",
-	"version": "0.18"
+	"packOptions": {
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/brendanjbaker/StraightSQL"
+		}
+	},
+	"version": "0.19"
 }
