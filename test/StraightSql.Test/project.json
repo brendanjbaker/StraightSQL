@@ -4,10 +4,22 @@
 	},
 	"dependencies": {
 		"StraightSql": "0.18",
-		"xunit": "2.1.0-rc2-build3178",
-		"xunit.runner.dnx": "2.1.0-rc2-build209"
+		"xunit": "2.1.0",
+		"dotnet-test-xunit": "1.0.0-rc2-build10025"
 	},
 	"frameworks": {
-		"dnx46": { }
-	}
+		"netcoreapp1.0": {
+			"dependencies": {
+				"Microsoft.NETCore.App": {
+					"type": "platform",
+					"version": "1.0.0-rc2-3002702"
+				}
+			},
+			"imports": [
+				"dnxcore50",
+				"portable-net45+win8"
+			]
+		}
+	},
+	"testRunner": "xunit"
 }
