@@ -1,19 +1,25 @@
 ﻿{
 	"authors": [ "baker" ],
 	"dependencies": {
-		"Microsoft.CSharp": "4.0.1-beta-23516",
-		"System.Collections": "4.0.11-beta-23516",
-		"System.Data.Common": "4.0.1-beta-23516",
-		"System.Linq": "4.0.1-beta-23516",
-		"System.Runtime": "4.0.21-beta-23516",
-		"System.Threading": "4.0.11-beta-23516",
-		"Npgsql": "3.1.0-alpha6"
+		"Microsoft.CSharp": "4.0.1-rc2-24027",
+		"System.Collections": "4.0.11-rc2-24027",
+		"System.Data.Common": "4.0.1-rc2-24027",
+		"System.Linq": "4.1.0-rc2-24027",
+		"System.Runtime": "4.1.0-rc2-24027",
+		"System.Threading": "4.0.11-rc2-24027",
+		"Npgsql": "3.1.2"
 	},
 	"description": "StraightSql Class Library",
 	"frameworks": {
-		"dnx46": { },
-		"dnxcore50": { }
+		"netstandard1.5": {
+			"imports": "dnxcore50"
+		}
 	},
-	"projectUrl": "https://github.com/brendanjbaker/StraightSQL",
-	"version": "0.18"
+	"packOptions": {
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/brendanjbaker/StraightSQL"
+		}
+	},
+	"version": "0.19"
 }

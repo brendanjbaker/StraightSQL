@@ -2,5 +2,6 @@
 *.xproj.user
 artifacts/
 bin/
+obj/
 project.lock.json
 
