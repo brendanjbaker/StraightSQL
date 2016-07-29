@@ -33,6 +33,13 @@
 			return new ContextualizedQuery(query, queryDispatcher, readerCollection);
 		}
 
+		public IContextualizedQueryParameterBuilder SetLiteral(String name, String value)
+		{
+			queryParameterBuilder.SetLiteral(name, value);
+
+			return this;
+		}
+
 		public IContextualizedQueryParameterBuilder SetParameter(NpgsqlParameter npgsqlParameter)
 		{
 			if (npgsqlParameter == null)

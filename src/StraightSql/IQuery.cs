@@ -6,6 +6,7 @@
 
 	public interface IQuery
 	{
+		IDictionary<String, String> Literals { get; }
 		IEnumerable<NpgsqlParameter> Parameters { get; }
 		String Text { get; }
 	}
