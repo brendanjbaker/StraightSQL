@@ -2,6 +2,7 @@
 {
 	using Npgsql;
 	using System;
+	using System.Collections.Generic;
 	using System.Threading.Tasks;
 	using Xunit;
 
@@ -39,7 +40,7 @@
 				new NpgsqlParameter("id", 1)
 			};
 
-			var item = await queryDispatcher.FirstAsync(new Query(query, parameters), row =>
+			var item = await queryDispatcher.FirstAsync(new Query(query, new Dictionary<String, String>(), parameters), row =>
 			{
 				return new
 				{
