@@ -1,9 +1,10 @@
 ﻿namespace StraightSql
 {
-	using Npgsql;
-	using System;
+    using Npgsql;
+    using System;
+    using System.Linq;
 
-	public class CommandPreparer
+    public class CommandPreparer
 		: ICommandPreparer
 	{
 		public void Prepare(NpgsqlCommand npgsqlCommand, IQuery query)
@@ -16,7 +17,7 @@
 
 			var queryText = query.Text;
 
-			foreach (var literal in query.Literals)
+			foreach (var literal in query.Literals.OrderByDescending(l => l.Key.Length))
 			{
 				var moniker = $":{literal.Key}";
 
