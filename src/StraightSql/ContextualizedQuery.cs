@@ -28,6 +28,8 @@
 			this.readerCollection = readerCollection;
 		}
 
+		public UInt32? Id => query.Id;
+
 		public IDictionary<String, String> Literals => query.Literals;
 
 		public IEnumerable<NpgsqlParameter> Parameters => query.Parameters;
