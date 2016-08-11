@@ -28,7 +28,7 @@
 			this.readerCollection = readerCollection;
 		}
 
-		public UInt32? Id => query.Id;
+		public UInt32? Identifier => query.Identifier;
 
 		public IDictionary<String, String> Literals => query.Literals;
 
