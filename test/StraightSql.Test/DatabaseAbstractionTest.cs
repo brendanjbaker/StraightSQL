@@ -9,7 +9,7 @@
 		[Fact]
 		public async Task DatabaseAbstractionTestAsync()
 		{
-			var queryDispatcher = new QueryDispatcher(new CommandPreparer(), new ConnectionFactory(ConnectionString.Default));
+			var queryDispatcher = new QueryDispatcher(new QueryExecutor(new CommandPreparer(), new ConnectionFactory(ConnectionString.Default)));
 			var readerCollection = new ReaderCollection(new[] { Reader.Create(new TestItemReader()) });
 			var database = new Database(queryDispatcher, readerCollection);
 

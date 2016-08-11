@@ -1,6 +1,5 @@
 ﻿namespace StraightSql
 {
-	using Npgsql;
 	using System;
 	using System.Collections.Generic;
 	using System.Data;
@@ -9,19 +8,14 @@
 	public class QueryDispatcher
 		: IQueryDispatcher
 	{
-		private readonly ICommandPreparer commandPreparer;
-		private readonly IConnectionFactory connectionFactory;
+		private readonly IQueryExecutor queryExecutor;
 
-		public QueryDispatcher(ICommandPreparer commandPreparer, IConnectionFactory connectionFactory)
+		public QueryDispatcher(IQueryExecutor queryExecutor)
 		{
-			if (commandPreparer == null)
-				throw new ArgumentNullException(nameof(commandPreparer));
+			if (queryExecutor == null)
+				throw new ArgumentNullException(nameof(queryExecutor));
 
-			if (connectionFactory == null)
-				throw new ArgumentNullException(nameof(connectionFactory));
-
-			this.commandPreparer = commandPreparer;
-			this.connectionFactory = connectionFactory;
+			this.queryExecutor = queryExecutor;
 		}
 
 		public async Task<Boolean> AnyAsync(IQuery query)
@@ -41,7 +35,7 @@
 
 		public async Task ExecuteAsync(IQuery query)
 		{
-			await ExecuteQueryAsync(query, async command =>
+			await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				await command.ExecuteNonQueryAsync();
 
@@ -51,7 +45,7 @@
 
 		public async Task<T> ExecuteScalarAsync<T>(IQuery query)
 		{
-			return await ExecuteQueryAsync(query, async command =>
+			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var scalarObject = await command.ExecuteScalarAsync();
 				var scalar = (T)scalarObject;
@@ -72,7 +66,7 @@
 
 		public async Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
-			return await ExecuteQueryAsync(query, async command =>
+			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var dataReader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
 
@@ -85,7 +79,7 @@
 
 		public async Task<IList<T>> ListAsync<T>(IQuery query, Func<IRow, T> readerFunction)
 		{
-			return await ExecuteQueryAsync(query, async command =>
+			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var list = new List<T>();
 				var dataReader = await command.ExecuteReaderAsync();
@@ -111,7 +105,7 @@
 
 		public async Task<T> SingleOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
-			return await ExecuteQueryAsync(query, async command =>
+			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var dataReader = await command.ExecuteReaderAsync();
 
@@ -125,19 +119,6 @@
 
 				return first;
 			});
-		}
-
-		private async Task<T> ExecuteQueryAsync<T>(IQuery query, Func<NpgsqlCommand, Task<T>> functionAsync)
-		{
-			using (var connection = await connectionFactory.CreateAsync())
-			{
-				using (var command = connection.CreateCommand())
-				{
-					commandPreparer.Prepare(command, query);
-
-					return await functionAsync(command);
-				}
-			}
 		}
 	}
 }
