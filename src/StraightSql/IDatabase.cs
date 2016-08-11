@@ -4,6 +4,6 @@
 
 	public interface IDatabase
 	{
-		IContextualizedQueryParameterBuilder CreateQuery(String query);
+		IContextualizedQueryIdentifierBuilder CreateQuery(String query);
 	}
 }
