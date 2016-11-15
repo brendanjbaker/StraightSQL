@@ -20,12 +20,12 @@
 			this.readerCollection = readerCollection;
 		}
 
-		public IContextualizedQueryParameterBuilder CreateQuery(String query)
+		public IContextualizedQueryIdentifierBuilder CreateQuery(String query)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
 
-			return new ContextualizedQueryParameterBuilder(queryDispatcher, new QueryParameterBuilder(query), readerCollection);
+			return new ContextualizedQueryIdentifierBuilder(query, queryDispatcher, readerCollection);
 		}
 	}
 }

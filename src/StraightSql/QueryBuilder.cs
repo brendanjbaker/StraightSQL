@@ -5,12 +5,12 @@
 	public class QueryBuilder
 		: IQueryBuilder
 	{
-		public IQueryParameterBuilder SetQuery(String query)
+		public IQueryIdentifierBuilder SetQuery(String query)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
 
-			return new QueryParameterBuilder(query);
+			return new QueryIdentifierBuilder(query);
 		}
 	}
 }

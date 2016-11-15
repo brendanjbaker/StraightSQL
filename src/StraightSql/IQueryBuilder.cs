@@ -4,6 +4,6 @@
 
 	public interface IQueryBuilder
 	{
-		IQueryParameterBuilder SetQuery(String query);
+		IQueryIdentifierBuilder SetQuery(String query);
 	}
 }

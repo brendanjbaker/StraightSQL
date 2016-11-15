@@ -1,9 +1,10 @@
 ﻿namespace StraightSql
 {
-	using Npgsql;
-	using System;
+    using Npgsql;
+    using System;
+    using System.Linq;
 
-	public class CommandPreparer
+    public class CommandPreparer
 		: ICommandPreparer
 	{
 		public void Prepare(NpgsqlCommand npgsqlCommand, IQuery query)
@@ -14,7 +15,19 @@
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
 
-			npgsqlCommand.CommandText = query.Text;
+			var queryText = query.Text;
+
+			foreach (var literal in query.Literals.OrderByDescending(l => l.Key.Length))
+			{
+				var moniker = $":{literal.Key}";
+
+				if (!queryText.Contains(moniker))
+					throw new LiteralNotFoundException(literal.Key);
+
+				queryText = queryText.Replace(moniker, literal.Value);
+			}
+
+			npgsqlCommand.CommandText = queryText;
 
 			foreach (var queryParameter in query.Parameters)
 			{
