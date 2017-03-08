@@ -30,7 +30,17 @@
 				{
 					commandPreparer.Prepare(command, query);
 
-					return await functionAsync(command);
+					try
+					{
+						return await functionAsync(command);
+					}
+					catch (PostgresException pe)
+					{
+						if (pe.SqlState == "23505")
+							throw new UniqueIndexViolationException(pe);
+
+						throw;
+					}
 				}
 			}
 		}
