@@ -9,13 +9,18 @@
 		: IQueryDispatcher
 	{
 		private readonly IQueryExecutor queryExecutor;
+		private readonly IReaderCollection readerCollection;
 
-		public QueryDispatcher(IQueryExecutor queryExecutor)
+		public QueryDispatcher(IQueryExecutor queryExecutor, IReaderCollection readerCollection)
 		{
 			if (queryExecutor == null)
 				throw new ArgumentNullException(nameof(queryExecutor));
 
+			if (readerCollection == null)
+				throw new ArgumentNullException(nameof(readerCollection));
+
 			this.queryExecutor = queryExecutor;
+			this.readerCollection = readerCollection;
 		}
 
 		public async Task<Boolean> AnyAsync(IQuery query)
@@ -73,7 +78,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				return reader(new Row(dataReader));
+				return reader(new Row(dataReader, readerCollection));
 			});
 		}
 
@@ -86,7 +91,7 @@
 
 				while (await dataReader.ReadAsync() != false)
 				{
-					list.Add(readerFunction(new Row(dataReader)));
+					list.Add(readerFunction(new Row(dataReader, readerCollection)));
 				}
 
 				return list;
@@ -112,7 +117,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				var first = reader(new Row(dataReader));
+				var first = reader(new Row(dataReader, readerCollection));
 
 				if (await dataReader.ReadAsync())
 					return default(T);
