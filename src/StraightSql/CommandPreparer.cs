@@ -1,10 +1,10 @@
 ﻿namespace StraightSql
 {
-    using Npgsql;
-    using System;
-    using System.Linq;
+	using Npgsql;
+	using System;
+	using System.Linq;
 
-    public class CommandPreparer
+	public class CommandPreparer
 		: ICommandPreparer
 	{
 		public void Prepare(NpgsqlCommand npgsqlCommand, IQuery query)
