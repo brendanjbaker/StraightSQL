@@ -10,17 +10,22 @@
 		: IQueryDispatcher
 	{
 		private readonly IQueryExecutor queryExecutor;
+		private readonly ITypeConverter typeConverter;
 		private readonly IEntityConfigurationCollection entityConfigurationCollection;
 
-		public QueryDispatcher(IQueryExecutor queryExecutor, IEntityConfigurationCollection entityConfigurationCollection)
+		public QueryDispatcher(IQueryExecutor queryExecutor, ITypeConverter typeConverter, IEntityConfigurationCollection entityConfigurationCollection)
 		{
 			if (queryExecutor == null)
 				throw new ArgumentNullException(nameof(queryExecutor));
+
+			if (typeConverter == null)
+				throw new ArgumentNullException(nameof(typeConverter));
 
 			if (entityConfigurationCollection == null)
 				throw new ArgumentNullException(nameof(entityConfigurationCollection));
 
 			this.queryExecutor = queryExecutor;
+			this.typeConverter = typeConverter;
 			this.entityConfigurationCollection = entityConfigurationCollection;
 		}
 
@@ -79,7 +84,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				return reader(new Row(dataReader, entityConfigurationCollection));
+				return reader(new Row(dataReader, typeConverter, entityConfigurationCollection));
 			});
 		}
 
@@ -92,7 +97,7 @@
 
 				while (await dataReader.ReadAsync() != false)
 				{
-					list.Add(readerFunction(new Row(dataReader, entityConfigurationCollection)));
+					list.Add(readerFunction(new Row(dataReader, typeConverter, entityConfigurationCollection)));
 				}
 
 				return list;
@@ -118,7 +123,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				var first = reader(new Row(dataReader, entityConfigurationCollection));
+				var first = reader(new Row(dataReader, typeConverter, entityConfigurationCollection));
 
 				if (await dataReader.ReadAsync())
 					return default(T);

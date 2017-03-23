@@ -8,17 +8,22 @@
 		: IRow
 	{
 		private readonly DbDataReader reader;
+		private readonly ITypeConverter typeConverter;
 		private readonly IEntityConfigurationCollection entityConfigurationCollection;
 
-		public Row(DbDataReader reader, IEntityConfigurationCollection entityConfigurationCollection)
+		public Row(DbDataReader reader, ITypeConverter typeConverter, IEntityConfigurationCollection entityConfigurationCollection)
 		{
 			if (reader == null)
 				throw new ArgumentNullException(nameof(reader));
+
+			if (typeConverter == null)
+				throw new ArgumentNullException(nameof(typeConverter));
 
 			if (entityConfigurationCollection == null)
 				throw new ArgumentNullException(nameof(entityConfigurationCollection));
 
 			this.reader = reader;
+			this.typeConverter = typeConverter;
 			this.entityConfigurationCollection = entityConfigurationCollection;
 		}
 
@@ -32,7 +37,10 @@
 			if (value == DBNull.Value)
 				return default(T);
 
-			return (T)value;
+			if (value.GetType() == typeof(T))
+				return (T)value;
+
+			return typeConverter.Convert<T>(value);
 		}
 
 		public T ReadEntity<T>(String prefix = null)
