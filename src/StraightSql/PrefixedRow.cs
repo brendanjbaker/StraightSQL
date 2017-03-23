@@ -20,6 +20,7 @@
 		}
 
 		public T ReadEntity<T>(String prefix = null)
+			where T : new()
 		{
 			return row.ReadEntity<T>(prefix);
 		}

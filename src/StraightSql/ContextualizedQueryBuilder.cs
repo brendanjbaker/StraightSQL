@@ -1,23 +1,24 @@
 ﻿namespace StraightSql
 {
+	using Entity;
 	using System;
 
 	public class ContextualizedQueryBuilder
 		: IContextualizedQueryBuilder
 	{
+		private readonly IEntityConfigurationCollection entityConfigurationCollection;
 		private readonly IQueryDispatcher queryDispatcher;
-		private readonly IReaderCollection readerCollection;
 
-		public ContextualizedQueryBuilder(IQueryDispatcher queryDispatcher, IReaderCollection readerCollection)
+		public ContextualizedQueryBuilder(IQueryDispatcher queryDispatcher, IEntityConfigurationCollection entityConfigurationCollection)
 		{
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));
 
-			if (readerCollection == null)
-				throw new ArgumentNullException(nameof(readerCollection));
+			if (entityConfigurationCollection == null)
+				throw new ArgumentNullException(nameof(entityConfigurationCollection));
 
 			this.queryDispatcher = queryDispatcher;
-			this.readerCollection = readerCollection;
+			this.entityConfigurationCollection = entityConfigurationCollection;
 		}
 
 		public IContextualizedQueryParameterBuilder SetQuery(String query)
@@ -25,7 +26,7 @@
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
 
-			return new ContextualizedQueryParameterBuilder(queryDispatcher, new QueryParameterBuilder(query), readerCollection);
+			return new ContextualizedQueryParameterBuilder(queryDispatcher, new QueryParameterBuilder(query), entityConfigurationCollection);
 		}
 	}
 }
