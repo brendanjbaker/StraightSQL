@@ -5,6 +5,8 @@
 	public interface IRow
 	{
 		T Read<T>(String columnName);
-		T ReadEntity<T>(String prefix = null);
+
+		T ReadEntity<T>(String prefix = null)
+			where T : new();
 	}
 }

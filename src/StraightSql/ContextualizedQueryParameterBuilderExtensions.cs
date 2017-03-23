@@ -28,6 +28,7 @@
 		}
 
 		public static async Task<T> FirstAsync<T>(this IContextualizedQueryParameterBuilder builder)
+			where T : new()
 		{
 			return await builder.Build().FirstAsync<T>();
 		}
@@ -38,6 +39,7 @@
 		}
 
 		public static async Task<T> FirstOrDefaultAsync<T>(this IContextualizedQueryParameterBuilder builder)
+			where T : new()
 		{
 			return await builder.Build().FirstOrDefaultAsync<T>();
 		}
@@ -48,6 +50,7 @@
 		}
 
 		public static async Task<IList<T>> ListAsync<T>(this IContextualizedQueryParameterBuilder builder)
+			where T : new()
 		{
 			return await builder.Build().ListAsync<T>();
 		}
@@ -118,6 +121,7 @@
 		}
 
 		public static async Task<T> SingleAsync<T>(this IContextualizedQueryParameterBuilder builder)
+			where T : new()
 		{
 			return await builder.Build().SingleAsync<T>();
 		}
@@ -128,6 +132,7 @@
 		}
 
 		public static async Task<T> SingleOrDefaultAsync<T>(this IContextualizedQueryParameterBuilder builder)
+			where T : new()
 		{
 			return await builder.Build().SingleOrDefaultAsync<T>();
 		}

@@ -1,5 +1,6 @@
 ﻿namespace StraightSql
 {
+	using Entity;
 	using System;
 	using System.Collections.Generic;
 	using System.Data;
@@ -9,18 +10,18 @@
 		: IQueryDispatcher
 	{
 		private readonly IQueryExecutor queryExecutor;
-		private readonly IReaderCollection readerCollection;
+		private readonly IEntityConfigurationCollection entityConfigurationCollection;
 
-		public QueryDispatcher(IQueryExecutor queryExecutor, IReaderCollection readerCollection)
+		public QueryDispatcher(IQueryExecutor queryExecutor, IEntityConfigurationCollection entityConfigurationCollection)
 		{
 			if (queryExecutor == null)
 				throw new ArgumentNullException(nameof(queryExecutor));
 
-			if (readerCollection == null)
-				throw new ArgumentNullException(nameof(readerCollection));
+			if (entityConfigurationCollection == null)
+				throw new ArgumentNullException(nameof(entityConfigurationCollection));
 
 			this.queryExecutor = queryExecutor;
-			this.readerCollection = readerCollection;
+			this.entityConfigurationCollection = entityConfigurationCollection;
 		}
 
 		public async Task<Boolean> AnyAsync(IQuery query)
@@ -78,7 +79,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				return reader(new Row(dataReader, readerCollection));
+				return reader(new Row(dataReader, entityConfigurationCollection));
 			});
 		}
 
@@ -91,7 +92,7 @@
 
 				while (await dataReader.ReadAsync() != false)
 				{
-					list.Add(readerFunction(new Row(dataReader, readerCollection)));
+					list.Add(readerFunction(new Row(dataReader, entityConfigurationCollection)));
 				}
 
 				return list;
@@ -117,7 +118,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				var first = reader(new Row(dataReader, readerCollection));
+				var first = reader(new Row(dataReader, entityConfigurationCollection));
 
 				if (await dataReader.ReadAsync())
 					return default(T);

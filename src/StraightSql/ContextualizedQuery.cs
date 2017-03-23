@@ -1,5 +1,6 @@
 ﻿namespace StraightSql
 {
+	using Entity;
 	using Npgsql;
 	using System;
 	using System.Collections.Generic;
@@ -8,11 +9,11 @@
 	public class ContextualizedQuery
 		: IContextualizedQuery
 	{
+		private readonly IEntityConfigurationCollection entityConfigurationCollection;
 		private readonly IQuery query;
 		private readonly IQueryDispatcher queryDispatcher;
-		private readonly IReaderCollection readerCollection;
 
-		public ContextualizedQuery(IQuery query, IQueryDispatcher queryDispatcher, IReaderCollection readerCollection)
+		public ContextualizedQuery(IQuery query, IQueryDispatcher queryDispatcher, IEntityConfigurationCollection entityConfigurationCollection)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
@@ -20,12 +21,12 @@
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));
 
-			if (readerCollection == null)
-				throw new ArgumentNullException(nameof(readerCollection));
+			if (entityConfigurationCollection == null)
+				throw new ArgumentNullException(nameof(entityConfigurationCollection));
 
 			this.query = query;
 			this.queryDispatcher = queryDispatcher;
-			this.readerCollection = readerCollection;
+			this.entityConfigurationCollection = entityConfigurationCollection;
 		}
 
 		public UInt32? Identifier => query.Identifier;
@@ -57,8 +58,9 @@
 		}
 
 		public async Task<T> FirstAsync<T>()
+			where T : new()
 		{
-			return await queryDispatcher.FirstAsync(query, reader => readerCollection.Read<T>(reader));
+			return await queryDispatcher.FirstAsync(query, row => entityConfigurationCollection.Read<T>(row));
 		}
 
 		public async Task<T> FirstAsync<T>(Func<IRow, T> reader)
@@ -67,8 +69,9 @@
 		}
 
 		public async Task<T> FirstOrDefaultAsync<T>()
+			where T : new()
 		{
-			return await queryDispatcher.FirstOrDefaultAsync(query, reader => readerCollection.Read<T>(reader));
+			return await queryDispatcher.FirstOrDefaultAsync(query, row => entityConfigurationCollection.Read<T>(row));
 		}
 
 		public async Task<T> FirstOrDefaultAsync<T>(Func<IRow, T> reader)
@@ -77,8 +80,9 @@
 		}
 
 		public async Task<IList<T>> ListAsync<T>()
+			where T : new()
 		{
-			return await queryDispatcher.ListAsync(query, reader => readerCollection.Read<T>(reader));
+			return await queryDispatcher.ListAsync(query, row => entityConfigurationCollection.Read<T>(row));
 		}
 
 		public async Task<IList<T>> ListAsync<T>(Func<IRow, T> reader)
@@ -87,8 +91,9 @@
 		}
 
 		public async Task<T> SingleAsync<T>()
+			where T : new()
 		{
-			return await queryDispatcher.SingleAsync(query, reader => readerCollection.Read<T>(reader));
+			return await queryDispatcher.SingleAsync(query, row => entityConfigurationCollection.Read<T>(row));
 		}
 
 		public async Task<T> SingleAsync<T>(Func<IRow, T> reader)
@@ -97,8 +102,9 @@
 		}
 
 		public async Task<T> SingleOrDefaultAsync<T>()
+			where T : new()
 		{
-			return await queryDispatcher.SingleOrDefaultAsync(query, reader => readerCollection.Read<T>(reader));
+			return await queryDispatcher.SingleOrDefaultAsync(query, row => entityConfigurationCollection.Read<T>(row));
 		}
 
 		public async Task<T> SingleOrDefaultAsync<T>(Func<IRow, T> reader)
