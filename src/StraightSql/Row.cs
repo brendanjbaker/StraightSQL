@@ -1,5 +1,6 @@
 ﻿namespace StraightSql
 {
+	using Entity;
 	using System;
 	using System.Data.Common;
 
@@ -7,18 +8,18 @@
 		: IRow
 	{
 		private readonly DbDataReader reader;
-		private readonly IReaderCollection readerCollection;
+		private readonly IEntityConfigurationCollection entityConfigurationCollection;
 
-		public Row(DbDataReader reader, IReaderCollection readerCollection)
+		public Row(DbDataReader reader, IEntityConfigurationCollection entityConfigurationCollection)
 		{
 			if (reader == null)
 				throw new ArgumentNullException(nameof(reader));
 
-			if (readerCollection == null)
-				throw new ArgumentNullException(nameof(readerCollection));
+			if (entityConfigurationCollection == null)
+				throw new ArgumentNullException(nameof(entityConfigurationCollection));
 
 			this.reader = reader;
-			this.readerCollection = readerCollection;
+			this.entityConfigurationCollection = entityConfigurationCollection;
 		}
 
 		public T Read<T>(String columnName)
@@ -35,13 +36,14 @@
 		}
 
 		public T ReadEntity<T>(String prefix = null)
+			where T : new()
 		{
 			var row = (IRow)this;
 
 			if (prefix != null)
 				row = new PrefixedRow(prefix, row);
 
-			return readerCollection.Read<T>(row);
+			return entityConfigurationCollection.Read<T>(row);
 		}
 	}
 }
