@@ -3,6 +3,7 @@
 	using Entity;
 	using System;
 	using System.Data.Common;
+	using Conversion;
 
 	public class Row
 		: IRow
@@ -33,20 +34,6 @@
 				throw new ArgumentNullException(nameof(columnName));
 
 			var value = reader[columnName];
-
-			if (value == DBNull.Value)
-				return default(T);
-
-			if (value.GetType() == typeof(T))
-				return (T)value;
-
-			var nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(T));
-
-			if (nullableUnderlyingType != null)
-			{
-				if (value.GetType() == nullableUnderlyingType)
-					return (T)value;
-			}
 
 			return typeConverter.Convert<T>(value);
 		}
