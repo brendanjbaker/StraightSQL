@@ -21,7 +21,7 @@
 			if (typeConverter.TryConvert(instance, out value))
 				return value;
 
-			throw new InvalidCastException($"Could not convert type {value.GetType().Name} to type {typeof(T).Name}.");
+			throw new InvalidCastException($"Could not convert type {instance.GetType().Name} to type {typeof(T).Name}.");
 		}
 	}
 }
