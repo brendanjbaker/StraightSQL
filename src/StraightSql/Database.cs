@@ -2,6 +2,7 @@
 {
 	using Entity;
 	using System;
+	using System.Linq;
 
 	public class Database
 		: IDatabase
@@ -27,6 +28,27 @@
 				throw new ArgumentNullException(nameof(query));
 
 			return new ContextualizedQueryIdentifierBuilder(query, queryDispatcher, entityConfigurationCollection);
+		}
+
+		public String GetColumnNames<TEntity>(String tablePrefix)
+		{
+			var fields =
+				entityConfigurationCollection
+					.Get<TEntity>()
+					.Fields
+					.Select(f => f.Name)
+					.Select(columnName => GetColumnName(tablePrefix, columnName))
+					.ToArray();
+
+			return String.Join(", ", fields);
+		}
+
+		private static String GetColumnName(String prefix, String columnName)
+		{
+			if (prefix == null)
+				return columnName;
+
+			return String.Format("{0}.{1} AS \"{0}.{1}\"", prefix, columnName);
 		}
 	}
 }
