@@ -40,6 +40,14 @@
 			if (value.GetType() == typeof(T))
 				return (T)value;
 
+			var nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(T));
+
+			if (nullableUnderlyingType != null)
+			{
+				if (value.GetType() == nullableUnderlyingType)
+					return (T)value;
+			}
+
 			return typeConverter.Convert<T>(value);
 		}
 
