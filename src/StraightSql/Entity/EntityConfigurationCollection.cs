@@ -14,17 +14,23 @@
 			this.entityConfigurations = entityConfigurations;
 		}
 
+		public IEntityConfiguration Get<TEntity>()
+		{
+			var entityConfiguration = entityConfigurations.SingleOrDefault(es => es.Type == typeof(TEntity));
+
+			if (entityConfiguration == null)
+				throw new EntityConfigurationNotFoundException(typeof(TEntity));
+
+			return entityConfiguration;
+		}
+
 		public TEntity Read<TEntity>(IRow row)
 			where TEntity : new()
 		{
 			if (row == null)
 				throw new ArgumentNullException(nameof(row));
 
-			var entityConfiguration = entityConfigurations.SingleOrDefault(es => es.Type == typeof(TEntity));
-
-			if (entityConfiguration == null)
-				throw new EntityConfigurationNotFoundException(typeof(TEntity));
-
+			var entityConfiguration = Get<TEntity>();
 			var entity = new TEntity();
 
 			foreach (var field in entityConfiguration.Fields)
