@@ -20,8 +20,8 @@
 
 		public static EntityFieldConfiguration Create<TEntity, TField>(Expression<Func<TEntity, TField>> expression, String name)
 		{
-			var memberExpression = expression.Body as MemberExpression;
-			var property = memberExpression.Member as PropertyInfo;
+			var memberExpression = (MemberExpression)expression.Body;
+			var property = (PropertyInfo)memberExpression.Member;
 
 			return new EntityFieldConfiguration(name, (entity, row) =>
 			{
