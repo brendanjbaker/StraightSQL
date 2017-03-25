@@ -12,9 +12,9 @@
 	{
 		private readonly IQueryExecutor queryExecutor;
 		private readonly ITypeConverter typeConverter;
-		private readonly IEntityContext entityConfigurationCollection;
+		private readonly IEntityContext entityContext;
 
-		public QueryDispatcher(IQueryExecutor queryExecutor, ITypeConverter typeConverter, IEntityContext entityConfigurationCollection)
+		public QueryDispatcher(IQueryExecutor queryExecutor, ITypeConverter typeConverter, IEntityContext entityContext)
 		{
 			if (queryExecutor == null)
 				throw new ArgumentNullException(nameof(queryExecutor));
@@ -22,12 +22,12 @@
 			if (typeConverter == null)
 				throw new ArgumentNullException(nameof(typeConverter));
 
-			if (entityConfigurationCollection == null)
-				throw new ArgumentNullException(nameof(entityConfigurationCollection));
+			if (entityContext == null)
+				throw new ArgumentNullException(nameof(entityContext));
 
 			this.queryExecutor = queryExecutor;
 			this.typeConverter = typeConverter;
-			this.entityConfigurationCollection = entityConfigurationCollection;
+			this.entityContext = entityContext;
 		}
 
 		public async Task<Boolean> AnyAsync(IQuery query)
@@ -85,7 +85,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				return reader(new Row(dataReader, typeConverter, entityConfigurationCollection));
+				return reader(new Row(dataReader, typeConverter, entityContext));
 			});
 		}
 
@@ -98,7 +98,7 @@
 
 				while (await dataReader.ReadAsync() != false)
 				{
-					list.Add(readerFunction(new Row(dataReader, typeConverter, entityConfigurationCollection)));
+					list.Add(readerFunction(new Row(dataReader, typeConverter, entityContext)));
 				}
 
 				return list;
@@ -124,7 +124,7 @@
 				if (!await dataReader.ReadAsync())
 					return default(T);
 
-				var first = reader(new Row(dataReader, typeConverter, entityConfigurationCollection));
+				var first = reader(new Row(dataReader, typeConverter, entityContext));
 
 				if (await dataReader.ReadAsync())
 					return default(T);

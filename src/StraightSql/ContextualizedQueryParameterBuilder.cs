@@ -7,11 +7,11 @@
 	public class ContextualizedQueryParameterBuilder
 		: IContextualizedQueryParameterBuilder
 	{
-		private readonly IEntityContext entityConfigurationCollection;
+		private readonly IEntityContext entityContext;
 		private readonly IQueryDispatcher queryDispatcher;
 		private readonly IQueryParameterBuilder queryParameterBuilder;
 
-		public ContextualizedQueryParameterBuilder(IQueryDispatcher queryDispatcher, IQueryParameterBuilder queryParameterBuilder, IEntityContext entityConfigurationCollection)
+		public ContextualizedQueryParameterBuilder(IQueryDispatcher queryDispatcher, IQueryParameterBuilder queryParameterBuilder, IEntityContext entityContext)
 		{
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));
@@ -19,19 +19,19 @@
 			if (queryParameterBuilder == null)
 				throw new ArgumentNullException(nameof(queryParameterBuilder));
 
-			if (entityConfigurationCollection == null)
-				throw new ArgumentNullException(nameof(entityConfigurationCollection));
+			if (entityContext == null)
+				throw new ArgumentNullException(nameof(entityContext));
 
 			this.queryDispatcher = queryDispatcher;
 			this.queryParameterBuilder = queryParameterBuilder;
-			this.entityConfigurationCollection = entityConfigurationCollection;
+			this.entityContext = entityContext;
 		}
 
 		public IContextualizedQuery Build()
 		{
 			var query = queryParameterBuilder.Build();
 
-			return new ContextualizedQuery(query, queryDispatcher, entityConfigurationCollection);
+			return new ContextualizedQuery(query, queryDispatcher, entityContext);
 		}
 
 		public IContextualizedQueryParameterBuilder SetLiteral(String name, String value)

@@ -1,18 +1,18 @@
 ﻿namespace StraightSql
 {
+	using Conversion;
 	using Entity;
 	using System;
 	using System.Data.Common;
-	using Conversion;
 
 	public class Row
 		: IRow
 	{
 		private readonly DbDataReader reader;
 		private readonly ITypeConverter typeConverter;
-		private readonly IEntityContext entityConfigurationCollection;
+		private readonly IEntityContext entityContext;
 
-		public Row(DbDataReader reader, ITypeConverter typeConverter, IEntityContext entityConfigurationCollection)
+		public Row(DbDataReader reader, ITypeConverter typeConverter, IEntityContext entityContext)
 		{
 			if (reader == null)
 				throw new ArgumentNullException(nameof(reader));
@@ -20,12 +20,12 @@
 			if (typeConverter == null)
 				throw new ArgumentNullException(nameof(typeConverter));
 
-			if (entityConfigurationCollection == null)
-				throw new ArgumentNullException(nameof(entityConfigurationCollection));
+			if (entityContext == null)
+				throw new ArgumentNullException(nameof(entityContext));
 
 			this.reader = reader;
 			this.typeConverter = typeConverter;
-			this.entityConfigurationCollection = entityConfigurationCollection;
+			this.entityContext = entityContext;
 		}
 
 		public T Read<T>(String columnName)
@@ -46,7 +46,7 @@
 			if (prefix != null)
 				row = new PrefixedRow(prefix, row);
 
-			return entityConfigurationCollection.Read<T>(row);
+			return entityContext.Read<T>(row);
 		}
 	}
 }

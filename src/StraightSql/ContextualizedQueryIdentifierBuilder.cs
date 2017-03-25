@@ -7,14 +7,14 @@
 	public class ContextualizedQueryIdentifierBuilder
 		: IContextualizedQueryIdentifierBuilder
 	{
-		private readonly IEntityContext entityConfigurationCollection;
+		private readonly IEntityContext entityContext;
 		private readonly String query;
 		private readonly IQueryDispatcher queryDispatcher;
 
 		public ContextualizedQueryIdentifierBuilder(
 			String query,
 			IQueryDispatcher queryDispatcher,
-			IEntityContext entityConfigurationCollection)
+			IEntityContext entityContext)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
@@ -22,17 +22,17 @@
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));
 
-			if (entityConfigurationCollection == null)
-				throw new ArgumentNullException(nameof(entityConfigurationCollection));
+			if (entityContext == null)
+				throw new ArgumentNullException(nameof(entityContext));
 
 			this.query = query;
 			this.queryDispatcher = queryDispatcher;
-			this.entityConfigurationCollection = entityConfigurationCollection;
+			this.entityContext = entityContext;
 		}
 
 		public IContextualizedQuery Build()
 		{
-			return new ContextualizedQuery(new Query(query), queryDispatcher, entityConfigurationCollection);
+			return new ContextualizedQuery(new Query(query), queryDispatcher, entityContext);
 		}
 
 		public IContextualizedQueryParameterBuilder SetIdentifier(UInt32 identifier)
@@ -52,7 +52,7 @@
 
 		private IContextualizedQueryParameterBuilder CreateNextBuilder(UInt32? identifier = null)
 		{
-			return new ContextualizedQueryParameterBuilder(queryDispatcher, new QueryParameterBuilder(query, identifier), entityConfigurationCollection);
+			return new ContextualizedQueryParameterBuilder(queryDispatcher, new QueryParameterBuilder(query, identifier), entityContext);
 		}
 	}
 }
