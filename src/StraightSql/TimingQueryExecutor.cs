@@ -12,11 +12,20 @@
 
 		public TimingQueryExecutor(IQueryExecutor queryExecutor)
 		{
+			if (queryExecutor == null)
+				throw new ArgumentNullException(nameof(queryExecutor));
+
 			this.queryExecutor = queryExecutor;
 		}
 
 		public async Task<T> ExecuteQueryAsync<T>(IQuery query, Func<NpgsqlCommand, Task<T>> functionAsync)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
+			if (functionAsync == null)
+				throw new ArgumentNullException(nameof(functionAsync));
+
 			var stopwatch = new Stopwatch();
 
 			stopwatch.Start();

@@ -32,6 +32,9 @@
 
 		public async Task<Boolean> AnyAsync(IQuery query)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
 			var first = await FirstOrDefaultAsync(query, reader =>
 			{
 				return new Object();
@@ -42,11 +45,17 @@
 
 		public async Task<Int64> CountAsync(IQuery query)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
 			return await ExecuteScalarAsync<Int64>(query);
 		}
 
 		public async Task ExecuteAsync(IQuery query)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
 			await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				await command.ExecuteNonQueryAsync();
@@ -57,6 +66,9 @@
 
 		public async Task<T> ExecuteScalarAsync<T>(IQuery query)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
 			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var scalarObject = await command.ExecuteScalarAsync();
@@ -68,6 +80,12 @@
 
 		public async Task<T> FirstAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			var result = await FirstOrDefaultAsync(query, reader);
 
 			if (result == null)
@@ -78,6 +96,12 @@
 
 		public async Task<T> FirstOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var dataReader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
@@ -91,6 +115,12 @@
 
 		public async Task<IList<T>> ListAsync<T>(IQuery query, Func<IRow, T> readerFunction)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
+			if (readerFunction == null)
+				throw new ArgumentNullException(nameof(readerFunction));
+
 			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var list = new List<T>();
@@ -107,6 +137,12 @@
 
 		public async Task<T> SingleAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			var result = await SingleOrDefaultAsync(query, reader);
 
 			if (result == null)
@@ -117,6 +153,12 @@
 
 		public async Task<T> SingleOrDefaultAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
 				var dataReader = await command.ExecuteReaderAsync();

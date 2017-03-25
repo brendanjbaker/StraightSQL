@@ -11,6 +11,9 @@
 
 		public EntityContext(IEnumerable<IEntityRegistration> entityRegistrations)
 		{
+			if (entityRegistrations == null)
+				throw new ArgumentNullException(nameof(entityRegistrations));
+
 			this.entityRegistrations = entityRegistrations;
 		}
 

@@ -65,6 +65,9 @@
 
 		public async Task<T> FirstAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.FirstAsync(query, row => reader(row));
 		}
 
@@ -76,6 +79,9 @@
 
 		public async Task<T> FirstOrDefaultAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.FirstOrDefaultAsync(query, row => reader(row));
 		}
 
@@ -87,6 +93,9 @@
 
 		public async Task<IList<T>> ListAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.ListAsync(query, row => reader(row));
 		}
 
@@ -98,6 +107,9 @@
 
 		public async Task<T> SingleAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.SingleAsync(query, row => reader(row));
 		}
 
@@ -109,6 +121,9 @@
 
 		public async Task<T> SingleOrDefaultAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.SingleOrDefaultAsync(query, row => reader(row));
 		}
 	}

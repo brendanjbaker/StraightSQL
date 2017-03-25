@@ -24,6 +24,12 @@
 
 		public async Task<T> ExecuteQueryAsync<T>(IQuery query, Func<NpgsqlCommand, Task<T>> functionAsync)
 		{
+			if (query == null)
+				throw new ArgumentNullException(nameof(query));
+
+			if (functionAsync == null)
+				throw new ArgumentNullException(nameof(functionAsync));
+
 			using (var connection = await connectionFactory.CreateAsync())
 			{
 				using (var command = connection.CreateCommand())

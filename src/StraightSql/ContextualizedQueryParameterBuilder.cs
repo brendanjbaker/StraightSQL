@@ -36,6 +36,9 @@
 
 		public IContextualizedQueryParameterBuilder SetLiteral(String name, String value)
 		{
+			if (name == null)
+				throw new ArgumentNullException(nameof(name));
+
 			queryParameterBuilder.SetLiteral(name, value);
 
 			return this;
