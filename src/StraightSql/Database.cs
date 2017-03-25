@@ -30,7 +30,7 @@
 			return new ContextualizedQueryIdentifierBuilder(query, queryDispatcher, entityContext);
 		}
 
-		public String GetColumnNames<TEntity>(String tablePrefix)
+		public String GetColumnNames<TEntity>(String tablePrefix = null)
 		{
 			var fields =
 				entityContext
