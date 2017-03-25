@@ -7,21 +7,21 @@
 	public class EntityContext
 		: IEntityContext
 	{
-		private readonly IEnumerable<IEntityConfiguration> entityConfigurations;
+		private readonly IEnumerable<IEntityRegistration> entityRegistrations;
 
-		public EntityContext(IEnumerable<IEntityConfiguration> entityConfigurations)
+		public EntityContext(IEnumerable<IEntityRegistration> entityRegistrations)
 		{
-			this.entityConfigurations = entityConfigurations;
+			this.entityRegistrations = entityRegistrations;
 		}
 
-		public IEntityConfiguration Get<TEntity>()
+		public IEntityRegistration Get<TEntity>()
 		{
-			var entityConfiguration = entityConfigurations.SingleOrDefault(es => es.Type == typeof(TEntity));
+			var entityRegistration = entityRegistrations.SingleOrDefault(es => es.Type == typeof(TEntity));
 
-			if (entityConfiguration == null)
-				throw new EntityConfigurationNotFoundException(typeof(TEntity));
+			if (entityRegistration == null)
+				throw new EntityRegistrationNotFoundException(typeof(TEntity));
 
-			return entityConfiguration;
+			return entityRegistration;
 		}
 
 		public TEntity Read<TEntity>(IRow row)
@@ -30,10 +30,10 @@
 			if (row == null)
 				throw new ArgumentNullException(nameof(row));
 
-			var entityConfiguration = Get<TEntity>();
+			var entityRegistration = Get<TEntity>();
 			var entity = new TEntity();
 
-			foreach (var field in entityConfiguration.Fields)
+			foreach (var field in entityRegistration.Fields)
 			{
 				field.Apply(entity, row);
 			}

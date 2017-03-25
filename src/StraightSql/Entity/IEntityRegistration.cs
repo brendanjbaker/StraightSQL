@@ -3,9 +3,9 @@
 	using System;
 	using System.Collections.Generic;
 
-	public interface IEntityConfiguration
+	public interface IEntityRegistration
 	{
-		IEnumerable<IEntityFieldConfiguration> Fields { get; }
+		IEnumerable<IEntityFieldRegistration> Fields { get; }
 		String Name { get; }
 		Type Type { get; }
 	}

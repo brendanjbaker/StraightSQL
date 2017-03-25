@@ -2,6 +2,6 @@
 {
 	public interface IEntityConfigurationFactory
 	{
-		IEntityConfiguration Create();
+		IEntityRegistration Create();
 	}
 }

@@ -3,9 +3,9 @@
 	using System;
 	using System.Linq.Expressions;
 
-	public interface IEntityConfigurationOptionsBuilder<TEntity>
+	public interface IEntityRegistrationOptionsBuilder<TEntity>
 	{
-		IEntityConfigurationOptionsBuilder<TEntity> AddField<TField>(Expression<Func<TEntity, TField>> expression, String name);
-		IEntityConfiguration Build();
+		IEntityRegistrationOptionsBuilder<TEntity> AddField<TField>(Expression<Func<TEntity, TField>> expression, String name);
+		IEntityRegistration Build();
 	}
 }

@@ -3,30 +3,30 @@
 	using System;
 	using System.Collections.Generic;
 
-	public class EntityConfiguration
-		: IEntityConfiguration
+	public class EntityRegistration
+		: IEntityRegistration
 	{
 		private readonly String name;
 		private readonly Type type;
-		private readonly IEnumerable<IEntityFieldConfiguration> fields;
+		private readonly IEnumerable<IEntityFieldRegistration> fields;
 
-		public EntityConfiguration(String name, Type type, IEnumerable<IEntityFieldConfiguration> fields)
+		public EntityRegistration(String name, Type type, IEnumerable<IEntityFieldRegistration> fields)
 		{
 			this.name = name;
 			this.type = type;
 			this.fields = fields;
 		}
 
-		public static IEntityConfiguration Create<TEntity>(String name, Action<IEntityConfigurationOptionsBuilder<TEntity>> options)
+		public static IEntityRegistration Create<TEntity>(String name, Action<IEntityRegistrationOptionsBuilder<TEntity>> options)
 		{
-			var fieldsBuilder = new EntityConfigurationOptionsBuilder<TEntity>(name);
+			var fieldsBuilder = new EntityRegistrationOptionsBuilder<TEntity>(name);
 
 			options(fieldsBuilder);
 
 			return fieldsBuilder.Build();
 		}
 
-		public IEnumerable<IEntityFieldConfiguration> Fields => fields;
+		public IEnumerable<IEntityFieldRegistration> Fields => fields;
 
 		public String Name => name;
 
