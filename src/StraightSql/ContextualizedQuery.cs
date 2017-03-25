@@ -9,11 +9,11 @@
 	public class ContextualizedQuery
 		: IContextualizedQuery
 	{
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityContext;
 		private readonly IQuery query;
 		private readonly IQueryDispatcher queryDispatcher;
 
-		public ContextualizedQuery(IQuery query, IQueryDispatcher queryDispatcher, IEntityConfigurationCollection entityConfigurationCollection)
+		public ContextualizedQuery(IQuery query, IQueryDispatcher queryDispatcher, IEntityContext entityContext)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
@@ -21,12 +21,12 @@
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));
 
-			if (entityConfigurationCollection == null)
-				throw new ArgumentNullException(nameof(entityConfigurationCollection));
+			if (entityContext == null)
+				throw new ArgumentNullException(nameof(entityContext));
 
 			this.query = query;
 			this.queryDispatcher = queryDispatcher;
-			this.entityConfigurationCollection = entityConfigurationCollection;
+			this.entityContext = entityContext;
 		}
 
 		public UInt32? Identifier => query.Identifier;
@@ -60,55 +60,70 @@
 		public async Task<T> FirstAsync<T>()
 			where T : new()
 		{
-			return await queryDispatcher.FirstAsync(query, row => entityConfigurationCollection.Read<T>(row));
+			return await queryDispatcher.FirstAsync(query, row => entityContext.Read<T>(row));
 		}
 
 		public async Task<T> FirstAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.FirstAsync(query, row => reader(row));
 		}
 
 		public async Task<T> FirstOrDefaultAsync<T>()
 			where T : new()
 		{
-			return await queryDispatcher.FirstOrDefaultAsync(query, row => entityConfigurationCollection.Read<T>(row));
+			return await queryDispatcher.FirstOrDefaultAsync(query, row => entityContext.Read<T>(row));
 		}
 
 		public async Task<T> FirstOrDefaultAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.FirstOrDefaultAsync(query, row => reader(row));
 		}
 
 		public async Task<IList<T>> ListAsync<T>()
 			where T : new()
 		{
-			return await queryDispatcher.ListAsync(query, row => entityConfigurationCollection.Read<T>(row));
+			return await queryDispatcher.ListAsync(query, row => entityContext.Read<T>(row));
 		}
 
 		public async Task<IList<T>> ListAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.ListAsync(query, row => reader(row));
 		}
 
 		public async Task<T> SingleAsync<T>()
 			where T : new()
 		{
-			return await queryDispatcher.SingleAsync(query, row => entityConfigurationCollection.Read<T>(row));
+			return await queryDispatcher.SingleAsync(query, row => entityContext.Read<T>(row));
 		}
 
 		public async Task<T> SingleAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.SingleAsync(query, row => reader(row));
 		}
 
 		public async Task<T> SingleOrDefaultAsync<T>()
 			where T : new()
 		{
-			return await queryDispatcher.SingleOrDefaultAsync(query, row => entityConfigurationCollection.Read<T>(row));
+			return await queryDispatcher.SingleOrDefaultAsync(query, row => entityContext.Read<T>(row));
 		}
 
 		public async Task<T> SingleOrDefaultAsync<T>(Func<IRow, T> reader)
 		{
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
+
 			return await queryDispatcher.SingleOrDefaultAsync(query, row => reader(row));
 		}
 	}

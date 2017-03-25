@@ -9,6 +9,9 @@
 
 		public LiteralNotFoundException(String name)
 		{
+			if (name == null)
+				throw new ArgumentNullException(nameof(name));
+
 			this.name = name;
 		}
 

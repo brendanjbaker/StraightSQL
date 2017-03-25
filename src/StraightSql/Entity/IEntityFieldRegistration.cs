@@ -2,7 +2,7 @@
 {
 	using System;
 
-	public interface IEntityFieldConfiguration
+	public interface IEntityFieldRegistration
 	{
 		String Name { get; }
 

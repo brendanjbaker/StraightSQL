@@ -7,19 +7,19 @@
 	public class Database
 		: IDatabase
 	{
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityContext;
 		private readonly IQueryDispatcher queryDispatcher;
 
-		public Database(IQueryDispatcher queryDispatcher, IEntityConfigurationCollection entityConfigurationCollection)
+		public Database(IQueryDispatcher queryDispatcher, IEntityContext entityContext)
 		{
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));
 
-			if (entityConfigurationCollection == null)
-				throw new ArgumentNullException(nameof(entityConfigurationCollection));
+			if (entityContext == null)
+				throw new ArgumentNullException(nameof(entityContext));
 
 			this.queryDispatcher = queryDispatcher;
-			this.entityConfigurationCollection = entityConfigurationCollection;
+			this.entityContext = entityContext;
 		}
 
 		public IContextualizedQueryIdentifierBuilder CreateQuery(String query)
@@ -27,13 +27,13 @@
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
 
-			return new ContextualizedQueryIdentifierBuilder(query, queryDispatcher, entityConfigurationCollection);
+			return new ContextualizedQueryIdentifierBuilder(query, queryDispatcher, entityContext);
 		}
 
-		public String GetColumnNames<TEntity>(String tablePrefix)
+		public String GetColumnNames<TEntity>(String tablePrefix = null)
 		{
 			var fields =
-				entityConfigurationCollection
+				entityContext
 					.Get<TEntity>()
 					.Fields
 					.Select(f => f.Name)
