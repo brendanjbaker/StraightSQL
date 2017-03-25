@@ -12,9 +12,9 @@
 	{
 		private readonly IQueryExecutor queryExecutor;
 		private readonly ITypeConverter typeConverter;
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityConfigurationCollection;
 
-		public QueryDispatcher(IQueryExecutor queryExecutor, ITypeConverter typeConverter, IEntityConfigurationCollection entityConfigurationCollection)
+		public QueryDispatcher(IQueryExecutor queryExecutor, ITypeConverter typeConverter, IEntityContext entityConfigurationCollection)
 		{
 			if (queryExecutor == null)
 				throw new ArgumentNullException(nameof(queryExecutor));

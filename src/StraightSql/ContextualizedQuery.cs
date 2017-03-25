@@ -9,11 +9,11 @@
 	public class ContextualizedQuery
 		: IContextualizedQuery
 	{
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityConfigurationCollection;
 		private readonly IQuery query;
 		private readonly IQueryDispatcher queryDispatcher;
 
-		public ContextualizedQuery(IQuery query, IQueryDispatcher queryDispatcher, IEntityConfigurationCollection entityConfigurationCollection)
+		public ContextualizedQuery(IQuery query, IQueryDispatcher queryDispatcher, IEntityContext entityConfigurationCollection)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));

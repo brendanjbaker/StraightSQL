@@ -4,12 +4,12 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
-	public class EntityConfigurationCollection
-		: IEntityConfigurationCollection
+	public class EntityContext
+		: IEntityContext
 	{
 		private readonly IEnumerable<IEntityConfiguration> entityConfigurations;
 
-		public EntityConfigurationCollection(IEnumerable<IEntityConfiguration> entityConfigurations)
+		public EntityContext(IEnumerable<IEntityConfiguration> entityConfigurations)
 		{
 			this.entityConfigurations = entityConfigurations;
 		}

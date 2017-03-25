@@ -7,11 +7,11 @@
 	public class ContextualizedQueryParameterBuilder
 		: IContextualizedQueryParameterBuilder
 	{
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityConfigurationCollection;
 		private readonly IQueryDispatcher queryDispatcher;
 		private readonly IQueryParameterBuilder queryParameterBuilder;
 
-		public ContextualizedQueryParameterBuilder(IQueryDispatcher queryDispatcher, IQueryParameterBuilder queryParameterBuilder, IEntityConfigurationCollection entityConfigurationCollection)
+		public ContextualizedQueryParameterBuilder(IQueryDispatcher queryDispatcher, IQueryParameterBuilder queryParameterBuilder, IEntityContext entityConfigurationCollection)
 		{
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));

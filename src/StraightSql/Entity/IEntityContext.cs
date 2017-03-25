@@ -1,6 +1,6 @@
 ﻿namespace StraightSql.Entity
 {
-	public interface IEntityConfigurationCollection
+	public interface IEntityContext
 	{
 		IEntityConfiguration Get<TEntity>();
 

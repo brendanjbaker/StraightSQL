@@ -7,10 +7,10 @@
 	public class Database
 		: IDatabase
 	{
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityConfigurationCollection;
 		private readonly IQueryDispatcher queryDispatcher;
 
-		public Database(IQueryDispatcher queryDispatcher, IEntityConfigurationCollection entityConfigurationCollection)
+		public Database(IQueryDispatcher queryDispatcher, IEntityContext entityConfigurationCollection)
 		{
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));

@@ -10,9 +10,9 @@
 	{
 		private readonly DbDataReader reader;
 		private readonly ITypeConverter typeConverter;
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityConfigurationCollection;
 
-		public Row(DbDataReader reader, ITypeConverter typeConverter, IEntityConfigurationCollection entityConfigurationCollection)
+		public Row(DbDataReader reader, ITypeConverter typeConverter, IEntityContext entityConfigurationCollection)
 		{
 			if (reader == null)
 				throw new ArgumentNullException(nameof(reader));

@@ -7,14 +7,14 @@
 	public class ContextualizedQueryIdentifierBuilder
 		: IContextualizedQueryIdentifierBuilder
 	{
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityConfigurationCollection;
 		private readonly String query;
 		private readonly IQueryDispatcher queryDispatcher;
 
 		public ContextualizedQueryIdentifierBuilder(
 			String query,
 			IQueryDispatcher queryDispatcher,
-			IEntityConfigurationCollection entityConfigurationCollection)
+			IEntityContext entityConfigurationCollection)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));

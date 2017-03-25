@@ -6,10 +6,10 @@
 	public class ContextualizedQueryBuilder
 		: IContextualizedQueryBuilder
 	{
-		private readonly IEntityConfigurationCollection entityConfigurationCollection;
+		private readonly IEntityContext entityConfigurationCollection;
 		private readonly IQueryDispatcher queryDispatcher;
 
-		public ContextualizedQueryBuilder(IQueryDispatcher queryDispatcher, IEntityConfigurationCollection entityConfigurationCollection)
+		public ContextualizedQueryBuilder(IQueryDispatcher queryDispatcher, IEntityContext entityConfigurationCollection)
 		{
 			if (queryDispatcher == null)
 				throw new ArgumentNullException(nameof(queryDispatcher));
