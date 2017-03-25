@@ -113,13 +113,13 @@
 			});
 		}
 
-		public async Task<IList<T>> ListAsync<T>(IQuery query, Func<IRow, T> readerFunction)
+		public async Task<IList<T>> ListAsync<T>(IQuery query, Func<IRow, T> reader)
 		{
 			if (query == null)
 				throw new ArgumentNullException(nameof(query));
 
-			if (readerFunction == null)
-				throw new ArgumentNullException(nameof(readerFunction));
+			if (reader == null)
+				throw new ArgumentNullException(nameof(reader));
 
 			return await queryExecutor.ExecuteQueryAsync(query, async command =>
 			{
@@ -128,7 +128,7 @@
 
 				while (await dataReader.ReadAsync() != false)
 				{
-					list.Add(readerFunction(new Row(dataReader, typeConverter, entityContext)));
+					list.Add(reader(new Row(dataReader, typeConverter, entityContext)));
 				}
 
 				return list;
