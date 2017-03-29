@@ -18,17 +18,17 @@
 			this.typeConverters = typeConverters;
 		}
 
-		public TypeConverter TryGet<T>(Object instance)
+		public TypeConverter TryGet<T>(Type type)
 		{
-			if (instance == null)
-				throw new ArgumentNullException(nameof(instance));
+			if (type == null)
+				throw new ArgumentNullException(nameof(type));
 
-			var typeConverter = typeConverters.SingleOrDefault(tc => tc.CanConvert(instance.GetType(), typeof(T)));
+			var typeConverter = typeConverters.SingleOrDefault(tc => tc.CanConvert(type, typeof(T)));
 
 			if (typeConverter == null)
 				return null;
 
-			return new FunctionalTypeConverter(instance.GetType(), typeof(T), (localInstance) =>
+			return new FunctionalTypeConverter(type, typeof(T), (localInstance) =>
 			{
 				return typeConverter.Convert<T>(localInstance);
 			});

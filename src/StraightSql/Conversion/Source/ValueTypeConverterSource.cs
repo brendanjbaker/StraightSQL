@@ -6,15 +6,15 @@
 	public class ValueTypeConverterSource
 		: ITypeConverterSource
 	{
-		public TypeConverter TryGet<T>(Object instance)
+		public TypeConverter TryGet<T>(Type type)
 		{
-			if (instance == null)
-				throw new ArgumentNullException(nameof(instance));
+			if (type == null)
+				throw new ArgumentNullException(nameof(type));
 
-			if (instance.GetType() != typeof(T))
+			if (type != typeof(T))
 				return null;
 
-			return new FunctionalTypeConverter(instance.GetType(), typeof(T), (localInstance) =>
+			return new FunctionalTypeConverter(type, typeof(T), (localInstance) =>
 			{
 				return (T)localInstance;
 			});

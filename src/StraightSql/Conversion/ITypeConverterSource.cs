@@ -5,6 +5,6 @@
 
 	public interface ITypeConverterSource
 	{
-		TypeConverter TryGet<T>(Object @instance);
+		TypeConverter TryGet<T>(Type type);
 	}
 }

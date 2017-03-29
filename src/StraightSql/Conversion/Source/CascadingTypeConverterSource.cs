@@ -16,14 +16,14 @@
 			this.typeConverterSources = typeConverterSources;
 		}
 
-		public TypeConverter TryGet<T>(Object instance)
+		public TypeConverter TryGet<T>(Type type)
 		{
-			if (instance == null)
-				throw new ArgumentNullException(nameof(instance));
+			if (type == null)
+				throw new ArgumentNullException(nameof(type));
 
 			foreach (var typeConverterSource in typeConverterSources)
 			{
-				var typeConverter = typeConverterSource.TryGet<T>(instance);
+				var typeConverter = typeConverterSource.TryGet<T>(type);
 
 				if (typeConverter != null)
 					return typeConverter;

@@ -27,17 +27,17 @@
 			this.typeConverterSource = typeConverterSource;
 		}
 
-		public TypeConverter TryGet<T>(Object instance)
+		public TypeConverter TryGet<T>(Type type)
 		{
 			TypeConverter typeConverter;
 
-			if (instance == null)
-				throw new ArgumentNullException(nameof(instance));
+			if (type == null)
+				throw new ArgumentNullException(nameof(type));
 
 			if (typeConverterCache.TryGetValue(typeof(T), out typeConverter))
 				return typeConverter;
 
-			typeConverter = typeConverterSource.TryGet<T>(instance);
+			typeConverter = typeConverterSource.TryGet<T>(type);
 
 			if (typeConverter != null)
 				lock (typeConverterCache)
