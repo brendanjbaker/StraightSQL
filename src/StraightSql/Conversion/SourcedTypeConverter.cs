@@ -23,7 +23,7 @@
 			if (instance == DBNull.Value)
 				return default(T);
 
-			var typeConverter = typeConverterSource.TryGet<T>(instance);
+			var typeConverter = typeConverterSource.TryGet<T>(instance.GetType());
 
 			if (typeConverter == null)
 				throw new TypeConverterNotFoundException(instance.GetType(), typeof(T));

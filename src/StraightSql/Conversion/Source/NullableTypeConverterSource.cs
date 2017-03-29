@@ -6,20 +6,20 @@
 	public class NullableTypeConverterSource
 		: ITypeConverterSource
 	{
-		public TypeConverter TryGet<T>(Object instance)
+		public TypeConverter TryGet<T>(Type type)
 		{
-			if (instance == null)
-				throw new ArgumentNullException(nameof(instance));
+			if (type == null)
+				throw new ArgumentNullException(nameof(type));
 
 			var nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(T));
 
 			if (nullableUnderlyingType == null)
 				return null;
 
-			if (instance.GetType() != nullableUnderlyingType)
+			if (type != nullableUnderlyingType)
 				return null;
 
-			return new FunctionalTypeConverter(instance.GetType(), typeof(T), (localInstance) =>
+			return new FunctionalTypeConverter(type, typeof(T), localInstance =>
 			{
 				return (T)localInstance;
 			});
