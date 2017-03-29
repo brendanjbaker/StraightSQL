@@ -28,7 +28,7 @@
 			if (typeConverter == null)
 				return null;
 
-			return new FunctionalTypeConverter(type, typeof(T), (localInstance) =>
+			return new FunctionalTypeConverter(type, typeof(T), localInstance =>
 			{
 				return typeConverter.Convert<T>(localInstance);
 			});

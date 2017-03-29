@@ -19,7 +19,7 @@
 			if (type != nullableUnderlyingType)
 				return null;
 
-			return new FunctionalTypeConverter(type, typeof(T), (localInstance) =>
+			return new FunctionalTypeConverter(type, typeof(T), localInstance =>
 			{
 				return (T)localInstance;
 			});
