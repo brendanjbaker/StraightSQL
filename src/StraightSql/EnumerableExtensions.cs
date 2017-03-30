@@ -6,14 +6,14 @@
 
 	public static class EnumerableExtensions
 	{
-		public static Boolean Multiple<T>(this IEnumerable<T> items)
+		public static Boolean Multiple<T>(this IEnumerable<T> source)
 		{
-			return items.Skip(1).Any();
+			return source.Skip(1).Any();
 		}
 
-		public static Boolean None<T>(this IEnumerable<T> items)
+		public static Boolean None<T>(this IEnumerable<T> source)
 		{
-			return !items.Any();
+			return !source.Any();
 		}
 	}
 }
