@@ -22,7 +22,7 @@
 
 		public override String Message
 		{
-			get { return $"Could not convert type from {fromType.Name} to {toType.Name}."; }
+			get { return $"No type converter found (from type {fromType.Name} to type {toType.Name})."; }
 		}
 	}
 }
