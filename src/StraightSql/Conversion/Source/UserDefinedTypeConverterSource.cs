@@ -23,14 +23,22 @@
 			if (type == null)
 				throw new ArgumentNullException(nameof(type));
 
-			var typeConverter = typeConverters.SingleOrDefault(tc => tc.CanConvert(type, typeof(T)));
+			var matchingTypeConverters =
+				typeConverters
+					.Where(tc => tc.CanConvert(type, typeof(T)))
+					.ToArray();
 
-			if (typeConverter == null)
+			if (matchingTypeConverters.None())
 				return null;
 
-			return new FunctionalTypeConverter(type, typeof(T), localInstance =>
+			if (matchingTypeConverters.Multiple())
+				throw new MultipleTypeConvertersFoundException(type, typeof(T));
+
+			var typeConverter = matchingTypeConverters.Single();
+
+			return new FunctionalTypeConverter(type, typeof(T), instance =>
 			{
-				return typeConverter.Convert<T>(localInstance);
+				return typeConverter.Convert<T>(instance);
 			});
 		}
 	}
