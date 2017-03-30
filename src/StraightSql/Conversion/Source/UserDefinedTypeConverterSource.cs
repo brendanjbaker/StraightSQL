@@ -36,9 +36,9 @@
 
 			var typeConverter = matchingTypeConverters.Single();
 
-			return new FunctionalTypeConverter(type, typeof(T), localInstance =>
+			return new FunctionalTypeConverter(type, typeof(T), instance =>
 			{
-				return typeConverter.Convert<T>(localInstance);
+				return typeConverter.Convert<T>(instance);
 			});
 		}
 	}

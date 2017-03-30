@@ -14,9 +14,9 @@
 			if (type != typeof(T))
 				return null;
 
-			return new FunctionalTypeConverter(type, typeof(T), localInstance =>
+			return new FunctionalTypeConverter(type, typeof(T), instance =>
 			{
-				return (T)localInstance;
+				return (T)instance;
 			});
 		}
 	}
