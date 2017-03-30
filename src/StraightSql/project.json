@@ -1,4 +1,4 @@
-﻿{
+{
 	"authors": [ "baker" ],
 	"dependencies": {
 		"Microsoft.CSharp": "4.0.1-rc2-24027",
@@ -7,7 +7,8 @@
 		"System.Linq": "4.1.0-rc2-24027",
 		"System.Runtime": "4.1.0-rc2-24027",
 		"System.Threading": "4.0.11-rc2-24027",
-		"Npgsql": "3.1.2"
+		"Npgsql": "3.1.2",
+		"System.Reflection": "4.1.0-rc2-24027"
 	},
 	"description": "StraightSql Class Library",
 	"frameworks": {
