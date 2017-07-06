@@ -48,7 +48,7 @@
 			if (prefix == null)
 				return columnName;
 
-			return String.Format("{0}.{1} AS \"{0}.{1}\"", prefix, columnName);
+			return String.Format("\"{0}\".\"{1}\" AS \"{0}.{1}\"", prefix, columnName);
 		}
 	}
 }
