@@ -1,20 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1BA553F0-56A7-46E2-8133-1DE71FFA601B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BB5493A0-DDBA-4ADB-8437-82DC00569BB9}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "StraightSql", "src\StraightSql\StraightSql.xproj", "{A29D6FC1-6D21-441E-84B7-B86508A9868F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D78FC93B-8DA6-4E0D-9A74-8717C5FA8C33}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "StraightSql.Test", "test\StraightSql.Test\StraightSql.Test.xproj", "{EBDBC7DB-E6C0-488D-89F6-B2F949355030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraightSql", "src\StraightSql\StraightSql.csproj", "{A29D6FC1-6D21-441E-84B7-B86508A9868F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraightSql.Test", "test\StraightSql.Test\StraightSql.Test.csproj", "{EBDBC7DB-E6C0-488D-89F6-B2F949355030}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
