@@ -80,6 +80,11 @@
 			return instance.SetParameterInternal(name, value);
 		}
 
+		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Decimal? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
 		public static IContextualizedQueryParameterBuilder SetParameter(this IContextualizedQueryParameterBuilder instance, String name, Guid? value)
 		{
 			return instance.SetParameterInternal(name, value);
