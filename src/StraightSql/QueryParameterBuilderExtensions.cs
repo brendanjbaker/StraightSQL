@@ -25,6 +25,11 @@
 			return instance.SetParameterInternal(name, value);
 		}
 
+		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Decimal? value)
+		{
+			return instance.SetParameterInternal(name, value);
+		}
+
 		public static IQueryParameterBuilder SetParameter(this IQueryParameterBuilder instance, String name, Guid? value)
 		{
 			return instance.SetParameterInternal(name, value);
