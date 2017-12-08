@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraightSql", "src\Straight
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraightSql.Test", "test\StraightSql.Test\StraightSql.Test.csproj", "{EBDBC7DB-E6C0-488D-89F6-B2F949355030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StraightSql.Composition.SimpleInjector", "StraightSql.Composition.SimpleInjector\StraightSql.Composition.SimpleInjector.csproj", "{3B0B86F4-EA11-4336-9B9F-CC17B7E9F6FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StraightSql.Composition.SimpleInjector", "src\StraightSql.Composition.SimpleInjector\StraightSql.Composition.SimpleInjector.csproj", "{3B0B86F4-EA11-4336-9B9F-CC17B7E9F6FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
