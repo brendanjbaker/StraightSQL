@@ -1,5 +1,4 @@
 .vs/
-*.xproj.user
 artifacts/
 bin/
 obj/
