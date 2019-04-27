@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraightSql", "StraightSql\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StraightSql.Core", "StraightSql.Core\StraightSql.Core.csproj", "{4CC51598-CA9B-484E-B14A-00BC526FD8F6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7BC0456B-554E-4DCC-A0E3-7F697CF98B51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A1A14260-7D73-47BA-95B5-9C5F9D455A7C} = {7BC0456B-554E-4DCC-A0E3-7F697CF98B51}
+		{4CC51598-CA9B-484E-B14A-00BC526FD8F6} = {7BC0456B-554E-4DCC-A0E3-7F697CF98B51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18B0755D-F387-4F03-8D00-2E923831B9CD}
