@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StraightSql.Core\StraightSql.Core.csproj" />
+  </ItemGroup>
+
 </Project>
